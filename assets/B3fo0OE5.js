@@ -1,1 +1,0 @@
-import{_ as t,a as n}from"./y7KpECeC.js";import s from"./Dxho8yAB.js";import{_,c as a,b as o,l as p,o as m}from"./DDivRFaA.js";import"./CPuMWCt1.js";import"./NoUwTQ-j.js";const i={components:{Navbar:n,Productlist:s,Footer:t}};function l(d,u,f,x,v,$){const e=n,r=p("Productlist"),c=t;return m(),a("div",null,[o(e),o(r),o(c)])}const F=_(i,[["render",l]]);export{F as default};

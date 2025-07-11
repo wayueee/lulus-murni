@@ -59,30 +59,9 @@
         v-if="selected"
         class="bg-[#ffffff] gap-5 py-5 grid grid-cols-1 sm:grid-cols-2 sm:gap-3 lg:gap-[20px] md:grid-cols-3 lg:grid-cols-4"
       >
-        <div
-          v-for="(category, index) in categories
-            .filter(
-              (category) => selected === 'All' || category.name === selected
-            )
-            .slice(0, showCount)"
-          :key="index"
-        >
+        <div v-for="(category, index) in filteredCategories" :key="index">
           <div class="border-2 bg-white p-[12px] rounded-lg xl:w-[268px]">
             <div class="relative">
-              <h1
-                class="absolute font-semibold w-[118px] py-1 text-center text-[12px] rounded-br-xl"
-                :class="
-                  category.promotion === 'Trending Now'
-                    ? 'border-r-2 border-b-2 bg-[#D1EFFF] text-[#249CD9] border-[#249CD9]'
-                    : '' || category.promotion === 'Promo'
-                    ? 'border-r-2 border-b-2 bg-[#FFE7D1] text-[#F78012] border-[#F78012]'
-                    : '' || category.promotion === 'Top Pick'
-                    ? 'border-r-2 border-b-2 bg-[#CBFFCD] text-[#0DBC16] border-[#0DBC16]'
-                    : ''
-                "
-              >
-                {{ category.promotion }}
-              </h1>
               <img
                 class="w-full h-auto"
                 :src="`/lulus-murni${category.image}`"
@@ -293,10 +272,20 @@ export default {
       ],
     };
   },
+  computed: {
+    filteredCategories() {
+      return this.categories
+        .filter(
+          (category) =>
+            this.selected === 'All' || category.name === this.selected
+        )
+        .slice(0, this.showCount);
+    },
+  },
   methods: {
-    productDetail(value){
+    productDetail(value) {
       this.$router.push(`/product-detail/${value.search}`);
-    }
+    },
   },
 };
 </script>

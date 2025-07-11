@@ -11,6 +11,7 @@
     <Testimonial />
     <FaqSection />
     <Footer />
+    <Test/>
   </div>
 </template>
 
@@ -26,6 +27,7 @@ import Graduation from "/components/Graduation.vue";
 import Testimonial from "/components/Testimonial.vue";
 import FaqSection from "/components/FaqSection.vue";
 import Footer from "/components/Footer.vue";
+import Test from "/components/Test.vue";
 export default {
   component: {
     Navbar,
@@ -39,6 +41,7 @@ export default {
     Testimonial,
     FaqSection,
     Footer,
+    Test,
   },
 };
 </script>

@@ -13,8 +13,12 @@
         v-for="card in cards.slice(0, showCount)"
         :key="card"
       >
-        <img class="w-full h-auto" :src="`/lulus-murni${card.image}`" :alt="card.name" />
-        <div class="relative w-full h-auto pt-[12px]  lg:py-[16px]">
+        <img
+          class="w-full h-auto"
+          :src="`/lulus-murni${card.image}`"
+          :alt="card.name"
+        />
+        <div class="relative w-full h-auto pt-[12px] lg:py-[16px]">
           <h1 class="font-bold text-[12px] lg:text-14">{{ card.name }}</h1>
           <div class="lg:flex mb-3 justify-between">
             <p class="text-[10px] font-light lg:text-[11px]">
@@ -40,7 +44,8 @@
           </div>
         </div>
         <div class="">
-          <button 
+          <button
+            @click="checkTryout(card.name)"
             class="w-full sm:w-full text-[14px] mt-1 xl:mb-3 rounded-lg h-[34px] lg:h-[30px] xl:h-[40px] font-semibold bg-[#249CD9] text-white"
           >
             Lihat Tryout
@@ -52,7 +57,7 @@
       <button
         v-if="showCount < cards.length"
         @click="showCount = cards.length"
-        class=" flex text-[#249CD9] font-semibold text-[12px] lg:text-[14px]"
+        class="flex text-[#249CD9] font-semibold text-[12px] lg:text-[14px]"
       >
         Tampilkan semua
         <img
@@ -72,14 +77,14 @@ export default {
       showCount: 4,
       cards: [
         {
-          image: "/lulus-murni/category/image-1.png",
+          image: "/lulus-murni/category/toefl.png",
           name: "TOEFL",
           price: "Rp.0",
           paket: "2 Paket Tersedia",
           benefits: ["Pembahasan Lengkap", "Dilengkapi Skor Prediksi & Ulasan"],
         },
         {
-          image: "/lulus-murni/category/image-2.png",
+          image: "/lulus-murni/category/bumn.png",
           name: "BUMN",
           price: "Rp.30.000",
           paket: "2 Paket Tersedia",
@@ -89,7 +94,7 @@ export default {
           ],
         },
         {
-          image: "/lulus-murni/category/image-3.png",
+          image: "/lulus-murni/category/polri.png",
           name: "POLRI",
           price: "Rp.99.000",
           paket: "2 Paket Tersedia",
@@ -99,7 +104,7 @@ export default {
           ],
         },
         {
-          image: "/lulus-murni/category/image-4.png",
+          image: "/lulus-murni/category/cpns.png",
           name: "CPNS",
           price: "Rp.0",
           paket: "4 Paket Tersedia",
@@ -121,6 +126,11 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    checkTryout(name) {
+      this.$router.push(`/product-list/${name}`);
+    },
   },
 };
 </script>

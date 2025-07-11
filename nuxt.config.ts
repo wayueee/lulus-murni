@@ -1,9 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-05-15',
+  compatibilityDate: "2025-05-15",
   devtools: { enabled: true },
-    css: ['~/main.css'],
-   postcss: {
+  css: ["~/main.css"],
+  postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
@@ -11,12 +11,15 @@ export default defineNuxtConfig({
   },
   // Tambahkan base URL agar cocok dengan GitHub Pages
   app: {
-    baseURL: '/lulus-murni/',
-        buildAssetsDir: 'assets' // Ganti <nama-repo> dengan nama repositori GitHub kamu
+    baseURL: "/lulus-murni/",
+    buildAssetsDir: "assets", // Ganti <nama-repo> dengan nama repositori GitHub kamu
   },
 
   // Tambahkan preset static agar build ke static
   nitro: {
-    preset: 'static'
-  }
-})
+    preset: "static",
+    prerender: {
+      ignore: ["/lulus-murni/product-detail" , "/lulus-murni/product-list"],
+    },
+  },
+});

@@ -27,10 +27,12 @@
         />
       </div>
       <div class="lg:grid lg:grid-cols-3">
-        <div class="col-span-2 mr-10">
+        <div class="col-span-2 lg:mr-10">
           <h2 class="font-semibold text-[14px] py-[4px]">{{ product.name }}</h2>
           <div class="flex gap-[8px] text-[14px]">
-            <p class="text-[#0683C2] font-semibold">{{ product.price }}</p>
+            <p class="text-[#0683C2] font-semibold">
+              Rp.{{ (product.price  * selectedPack.number || 1).toFixed(3)  }}
+            </p>
             <div class="relative">
               <img
                 class="absolute bottom-2"
@@ -42,19 +44,18 @@
           </div>
           <hr class="mt-[8px]" />
           <h1 class="my-[8px] text-[12px] font-medium">Pilih Paket</h1>
-          <div class="flex flex-wrap gap-[12px]">
-            <div class="" v-for="(number, index) in product.pack" :key="index">
-              <button
+          <div class="flex flex-wrap gap-[12px]" >
+            <div class="" v-for="(pack, index) in product.pack" :key="index">
+              <button 
                 class="after:border-[#F78012] hover:border-[#F78012] rounded-lg border p-[8px] text-[11px] hover:font-medium"
                 :class="{
-                  'font-medium border-[#F78012]': activeIndexTryout === index,
+                  'font-medium border-[#F78012]':
+                    selectedPack.number === pack.number,
                 }"
-                @click="
-                  activeIndexTryout = activeIndexTryout === index ? null : index
-                "
+                @click="dataDetail(pack, index)"
               >
-                <h4>{{ number }} Paket Tryout</h4>
-                <span>(Unlimited 1 Tahun)</span>
+                <h4>{{ pack.number }} {{ pack.name }}</h4>
+                <span>{{ pack.title }}</span>
               </button>
             </div>
           </div>
@@ -72,15 +73,12 @@
                     ? 'gap-[1px] md:gap-[4px]'
                     : ''
                 "
-                @click="activeIndex = activeIndex === index ? null : index"
+                @click="typeDetail(type)"
               >
                 <img
-                  class=""
-                  :src="
-                    activeIndex === index
-                      ? `/lulus-murni${type.onClickCheckbox}`
-                      : `/lulus-murni${type.checkbox}`
-                  "
+                  :src="`/lulus-murni${
+                    type.checked ? type.onClickCheckbox : type.checkbox
+                  }`"
                   :alt="type.name"
                 />
                 <span>
@@ -117,7 +115,9 @@
             </button>
           </div>
 
-          <div class="mt-4 text-[12px] overflow-y-auto lg:overflow-visible lg:h-auto lg:mb-[150px] h-[100px]">
+          <div
+            class="mt-4 text-[12px] overflow-y-auto lg:overflow-visible lg:h-auto lg:mb-[150px] h-[100px]"
+          >
             <div v-if="tab === 'informasi'">
               <p>{{ informasiDetail }}</p>
               <br />
@@ -126,7 +126,9 @@
                 pengelolanya:
               </p>
               <ul class="list-disc ml-5">
-                <li class="mb-2" v-for="list in informasiList" :key="list">{{ list }}</li>
+                <li class="mb-2" v-for="list in informasiList" :key="list">
+                  {{ list }}
+                </li>
               </ul>
             </div>
 
@@ -152,8 +154,10 @@
             <div
               class="flex justify-between font-semibold pt-2 text-[14px] md:text-[16px]"
             >
-              <h1 class="text-[14px] md:text-[16px]">TOTAL</h1>
-              <h1 class="text-[14px] md:text-[16px]">{{ product.price }}</h1>
+              <h1 class="text-[14px] md:text-[16px]">TOTAL mobile</h1>
+              <h1 class="text-[14px] md:text-[16px]">
+                Rp.{{ (product.price  * selectedPack.number || 1).toFixed(3) }}
+              </h1>
             </div>
             <div class="flex justify-end pb-3">
               <button
@@ -177,7 +181,7 @@
                 Apply
               </button>
             </div>
-            <button
+            <button @click="toCheckoutPage()" 
               class="w-full bg-[#249CD9] text-white font-semibold py-2 rounded-lg mb-5"
             >
               Pesan Sekarang
@@ -189,20 +193,40 @@
         <p class="text-red-500">Produk tidak ditemukan</p>
       </div> -->
 
-        <div class="hidden lg:block ">
+        <div class="hidden lg:block">
           <div class="bg-black/20 p-[20px] rounded-lg">
             <h1 class="font-semibold text-[14px] mb-[4px]">Rincian Harga</h1>
-            <div class="flex gap-[20px]">
+            <div class="flex gap-[20px] justify-between">
               <h1 class="text-[12px]">Nama Paket</h1>
               <h1 class="text-[12px] font-medium">{{ product.name }}</h1>
             </div>
+            <div>
+              <div class="flex gap-1 justify-end">
+                <p class="text-[12px] font-medium">{{ selectedPack.number }}</p>
+                <span class="text-[12px] font-medium">{{ selectedPack.name }}</span>
+                <h5 class="text-[12px] font-medium">{{ selectedPack.title }}</h5>
+              </div>
+              <div class="flex justify-between">
+                <h1 class="text-[14px]">harga Paket</h1>
+                <div >
+                  <span>{{ (product.price  * selectedPack.number || 1).toFixed(3)  }}</span>
+                </div>
+              </div>
+            </div>
+            <h1 class="text-[14px] mt-2 font-semibold">Add ons</h1>
+            <div  v-for="addOns in selectedType" :key="addOns">
+              <div class="flex justify-between">
+                <p class="text-[12px] grid grid-cols-2">{{ addOns.name }}</p>
+                <span class="text-[12px] font-medium">{{ addOns.price.toFixed(3) }}</span>
+              </div>
+            </div>
           </div>
           <div class="hidden lg:block">
-            <div
-              class="flex justify-between font-semibold pt-5 "
-            >
+            <div class="flex justify-between font-semibold pt-5">
               <h1 class="text-[14px] font-semibold">TOTAL</h1>
-              <h1 class="text-[14px] font-semibold">{{ product.price }}</h1>
+              <h1 class="text-[14px] font-semibold">
+                Rp.{{ totalPrice.toFixed(3) }}
+              </h1>
             </div>
             <h4 class="font-medium text-[12px] md:text-[14px] py-3">
               Kode Promo <span class="text-[#F78012]">(opsional)</span>
@@ -235,6 +259,13 @@
 export default {
   data() {
     return {
+      selectedType: [],
+      selectedPack: {
+              number: 1,
+              isOpen : true,
+              name: "Paket Tryout",
+              title: "(Unlimited 1 tahun)",
+            },
       activeIndex: null,
       activeIndexTryout: null,
       tab: "informasi",
@@ -260,34 +291,57 @@ export default {
         {
           image: "/lulus-murni/product-list/sekdin.png",
           name: "Paket Simulasi Premium All-in TOEFL ITP",
-          pack: [1, 2, 5],
+          pack: [
+            {
+              number: 1,
+              isOpen : true,
+              name: "Paket Tryout",
+              title: "(Unlimited 1 tahun)",
+            },
+            {
+              number: 2,
+              isOpen : true,
+              name: "Paket Tryout",
+              title: "(Unlimited 1 tahun)",
+            },
+            {
+              number: 5,
+              isOpen : true,
+              name: "Paket Tryout",
+              title: "(Unlimited 1 tahun)",
+            },
+          ],
           types: [
             {
               name: "Retry",
+              price: 50.0,
               checkbox: "/lulus-murni/product-detail/checkbox.svg",
               onClickCheckbox:
                 "/lulus-murni/product-detail/onclick-checkbox.svg",
             },
             {
               name: "Pembahasan",
+              price: 50.0,
               checkbox: "/lulus-murni/product-detail/checkbox.svg",
               onClickCheckbox:
                 "/lulus-murni/product-detail/onclick-checkbox.svg",
             },
             {
               name: "Koreksi Otomatis",
+              price: 50.0,
               checkbox: "/lulus-murni/product-detail/checkbox.svg",
               onClickCheckbox:
                 "/lulus-murni/product-detail/onclick-checkbox.svg",
             },
             {
               name: "PDF Soal + Jawaban",
+              price: 50.0,
               checkbox: "/lulus-murni/product-detail/checkbox.svg",
               onClickCheckbox:
                 "/lulus-murni/product-detail/onclick-checkbox.svg",
             },
           ],
-          price: "Rp59.000",
+          price: 59.0,
           search: "TOEFL",
           description: {
             name: "Informasi Detail Ujian",
@@ -305,21 +359,57 @@ export default {
         {
           image: "/lulus-murni/product-list/toefl.png",
           name: "Paket Simulasi Premium All-in TOEFL ITP",
-          types: [
+                    pack: [
             {
-              name: "Online",
+              number: 1,
+              isOpen : true,
+              name: "Paket Tryout",
+              title: "(Unlimited 1 tahun)",
             },
             {
-              name: "Lifetime",
+              number: 2,
+              isOpen : true,
+              name: "Paket Tryout",
+              title: "(Unlimited 1 tahun)",
             },
             {
-              name: "Retry",
-            },
-            {
-              name: "Group",
+              number: 5,
+              isOpen : true,
+              name: "Paket Tryout",
+              title: "(Unlimited 1 tahun)",
             },
           ],
-          price: "Rp59.000",
+          types: [
+            {
+              name: "Retry",
+              price: 50.0,
+              checkbox: "/lulus-murni/product-detail/checkbox.svg",
+              onClickCheckbox:
+                "/lulus-murni/product-detail/onclick-checkbox.svg",
+            },
+            {
+              name: "Pembahasan",
+              price: 50.0,
+              checkbox: "/lulus-murni/product-detail/checkbox.svg",
+              onClickCheckbox:
+                "/lulus-murni/product-detail/onclick-checkbox.svg",
+            },
+            {
+              name: "Koreksi Otomatis",
+              price: 50.0,
+              checkbox: "/lulus-murni/product-detail/checkbox.svg",
+              onClickCheckbox:
+                "/lulus-murni/product-detail/onclick-checkbox.svg",
+            },
+            {
+              name: "PDF Soal + Jawaban",
+              price: 50.0,
+              checkbox: "/lulus-murni/product-detail/checkbox.svg",
+              onClickCheckbox:
+                "/lulus-murni/product-detail/onclick-checkbox.svg",
+            },
+          ],
+          price: 59.0,
           search: "SEKDIN",
           description: {
             benefit: [
@@ -342,10 +432,37 @@ export default {
       const search = this.$route.params.search;
       return this.categories.find((item) => item.search === search);
     },
+    totalPrice() {
+  return (this.product.price) * (this.selectedPack.number || 1) +
+    this.selectedType.reduce((total, item) => total + item.price, 0);
+}
+
   },
   methods: {
     toggleTab() {
       this.tab = this.tab === "informasi" ? "benefit" : "informasi";
+    },
+    dataDetail(value) {
+      this.selectedPack = value;
+
+      //hanya mengambil data di object pack
+    },
+    typeDetail(type) {
+      type.checked = !type.checked; 
+      //di image atas untuk checkbox
+
+      const id = this.selectedType.findIndex((item) => item.name === type.name);
+      //mencari data di dalam categories.type
+
+      if (type.checked && id === -1) {
+        //jika tidak ada cheked dan nama -1
+        this.selectedType.push(type);
+        // menjalankan push type
+      } else if (!type.checked && id !== -1) {
+        // artinya ( !checked ) itu adalah kebalikan contoh : { type.checked = !type.checked }
+        this.selectedType.splice(id, 1);
+        //jika !checked dan id tidak sama atau nama ada di dalam array berarti menjalankan ini
+      }
     },
   },
 };

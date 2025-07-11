@@ -277,7 +277,7 @@ export default {
       return this.categories
         .filter(
           (category) =>
-            this.selected === 'All' || category.name === this.selected
+            this.selected === 'All' || category.search === this.selected
         )
         .slice(0, this.showCount);
     },

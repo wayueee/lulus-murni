@@ -198,7 +198,7 @@
             >
               <h1 class="text-[14px] md:text-[16px]">TOTAL</h1>
               <h1 class="text-[14px] md:text-[16px]">
-                Rp.{{ (product.price * selectedPack.number || 1).toFixed(3) }}
+                Rp.{{ totalPrice.toFixed(3) }}
               </h1>
             </div>
             <div class="flex justify-end pb-3">

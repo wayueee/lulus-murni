@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   nitro: {
     preset: "static",
     prerender: {
-      ignore: ["/lulus-murni/product-detail" , "/lulus-murni/product-list"],
+      ignore: ["/lulus-murni/product-detail" , "/lulus-murni/product-list", "/lulus-murni/checkout-page",],
     },
   },
 });

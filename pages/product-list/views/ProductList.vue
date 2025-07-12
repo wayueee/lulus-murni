@@ -198,7 +198,7 @@ export default {
       selected: "All",
       categories: [
         {
-          image: "/lulus-murni/product-list/sekdin.png",
+          image: "/lulus-murni/product-list/toefl.png",
           name: "TOEFL ITP Premium (All In)",
           types: [
             {
@@ -229,12 +229,12 @@ export default {
               "Bobot soal sesuai aturan terbaru, raport nilai hasil tryout, dan sistem peringkat nasional, kamu juga bisa mengerjakannya berulang kali tanpa batas untuk hasil maksimal.",
               "Beli sekali untuk akses selamanya!",
             ],
-            image: "/lulus-murni/product-list/sekdin.png",
+            image: "/lulus-murni/product-list/toefl.png",
           },
           showModal: false,
         },
         {
-          image: "/lulus-murni/product-list/toefl.png",
+          image: "/lulus-murni/product-list/sekdin.png",
           name: "TOEFL ITP Premium (All In)",
           types: [
             {
@@ -265,7 +265,7 @@ export default {
               "Bobot soal sesuai aturan terbaru, raport nilai hasil tryout, dan sistem peringkat nasional, kamu juga bisa mengerjakannya berulang kali tanpa batas untuk hasil maksimal.",
               "Beli sekali untuk akses selamanya!",
             ],
-            image: "/lulus-murni/product-list/toefl.png",
+            image: "/lulus-murni/product-list/sekdin.png",
           },
           showModal: false,
         },

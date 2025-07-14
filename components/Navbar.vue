@@ -223,7 +223,7 @@
           >
         </div>
         <button @click="toLoginPage"
-          class="text-[14px] lg:w-[90px] mb-2 xl:mb-3 lg:h-[30px] xl:w-[100px] xl:h-[40px] hidden lg:block bg-[#249CD9] hover:bg-blue-500 duration-300 font-semibold text-white rounded"
+          class="text-[14px] w-full py-2 lg:py-0 mt-[8px] lg:mt-0 lg:w-[90px] mb-2 xl:mb-3 lg:h-[30px] xl:w-[100px] xl:h-[40px]  bg-[#249CD9] hover:bg-blue-500 duration-300 font-semibold text-white rounded"
         >
           Login
         </button>

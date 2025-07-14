@@ -46,10 +46,10 @@
             <h1 class="font-semibold text-[20px]">Login.</h1>
             <p class="text-[14px] mb-[12px]">Silakan login dengan akun kamu.</p>
             <div
-              class="flex w-full py-2 rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
+              class="flex  rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
             >
               <img src="/lulus-murni/login/icon-profile.svg" alt="img" />
-              <input
+              <input class="w-full py-2"
                 type="text"
                 name="username"
                 id=""
@@ -57,22 +57,24 @@
               />
             </div>
             <div
-              class="flex justify-between w-full py-2 rounded-lg border-2 pl-2 gap-[8px] mb-[16px]"
+              class="flex justify-between  rounded-lg border-2 pl-2 gap-[8px] mb-[16px]"
             >
               <div class="flex gap-[8px]">
                 <img src="/lulus-murni/login/icon-password.svg" alt="img" />
-                <input
+                <input class="w-full py-2"
                   type="password"
                   name="password"
                   id=""
                   placeholder="Password"
                 />
               </div>
-              <img
-                class="pr-[12px]"
-                src="/lulus-murni/login/icon-eye.svg"
-                alt="img"
-              />
+              <button>
+                <img
+                  class="pr-[12px]"
+                  src="/lulus-murni/login/icon-eye.svg"
+                  alt="img"
+                />
+              </button>
             </div>
             <div class="flex justify-end">
               <button class="text-[#249CD9] font-semibold text-[14px]">
@@ -142,10 +144,10 @@
             <h1 class="font-semibold text-[16px]">Login.</h1>
             <p class="text-[12px] mb-[12px]">Silakan login dengan akun kamu.</p>
             <div
-              class="flex w-full py-2 rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
+              class="flex  rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
             >
               <img src="/lulus-murni/login/icon-profile.svg" alt="img" />
-              <input
+              <input class="w-full py-2"
                 type="text"
                 name="username"
                 id=""
@@ -153,22 +155,24 @@
               />
             </div>
             <div
-              class="flex justify-between w-full py-2 rounded-lg border-2 pl-2 gap-[8px] mb-[16px]"
+              class="flex justify-between rounded-lg border-2 pl-2 gap-[8px] mb-[16px]"
             >
               <div class="flex gap-[8px]">
                 <img src="/lulus-murni/login/icon-password.svg" alt="img" />
-                <input
+                <input class="w-full py-2"
                   type="password"
                   name="password"
                   id=""
                   placeholder="Password"
                 />
               </div>
-              <img
-                class="pr-[12px]"
-                src="/lulus-murni/login/icon-eye.svg"
-                alt="img"
-              />
+              <button class="pr-5">
+                <img
+                  class=""
+                  src="/lulus-murni/login/icon-eye.svg"
+                  alt="img"
+                />
+              </button>
             </div>
             <div class="flex justify-end">
               <button class="text-[#249CD9] font-semibold text-[14px]">

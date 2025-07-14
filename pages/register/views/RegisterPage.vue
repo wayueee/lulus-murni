@@ -37,10 +37,10 @@
               <h1 class="font-semibold text-[20px]">Daftar.</h1>
               <p class="text-[14px] mb-[12px]">Silakan buat Akun untuk memulai tryout.</p>
               <div
-                class="flex w-full py-2 rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
+                class="flex  rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
               >
                 <img src="/lulus-murni/register/icon-profile.svg" alt="img" />
-                <input
+                <input class="w-full py-2" 
                   type="text"
                   name="name"
                   id=""
@@ -48,10 +48,10 @@
                 />
               </div>
               <div
-                class="flex w-full py-2 rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
+                class="flex  rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
               >
                 <img class="w-[18px]" src="/lulus-murni/register/icon-email.svg" alt="img" />
-                <input  
+                <input class="w-full py-2"  
                   type="email"
                   name="name"
                   id=""
@@ -59,10 +59,10 @@
                 />
               </div>
               <div
-                class="flex w-full py-2 rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
+                class="flex  rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
               >
                 <img class="w-[18px]" src="/lulus-murni/register/icon-phone.svg" alt="img" />
-                <input
+                <input class="w-full py-2"
                   type="number"
                   name="name"
                   id=""
@@ -70,11 +70,11 @@
                 />
               </div>
               <div
-                class="flex justify-between w-full py-2 rounded-lg border-2 pl-2 gap-[8px] mb-[16px]"
+                class="flex justify-between  rounded-lg border-2 pl-2 gap-[8px] mb-[16px]"
               >
                 <div class="flex gap-[8px]">
                   <img src="/lulus-murni/register/icon-password.svg" alt="img" />
-                  <input
+                  <input class="w-full py-2"
                     type="password"
                     name="password"
                     id=""
@@ -90,11 +90,11 @@
                 </button>
               </div>
               <div
-                class="flex justify-between w-full py-2 rounded-lg border-2 pl-2 gap-[8px] mb-[16px]"
+                class="flex justify-between  rounded-lg border-2 pl-2 gap-[8px] mb-[16px]"
               >
                 <div class="flex gap-[8px]">
                   <img src="/lulus-murni/register/icon-password.svg" alt="img" />
-                  <input
+                  <input class="w-full py-2"
                     type="password"
                     name="password"
                     id=""
@@ -166,10 +166,10 @@
             <h1 class="font-semibold text-[16px]">Daftar.</h1>
             <p class="text-[12px] mb-[12px]">Silakan buat Akun untuk memulai tryout.</p>
             <div
-                class="flex w-full py-2 rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
+                class="flex  rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
               >
                 <img src="/lulus-murni/register/icon-profile.svg" alt="img" />
-                <input
+                <input class="w-full py-2"
                   type="text"
                   name="name"
                   id=""
@@ -177,10 +177,10 @@
                 />
               </div>
               <div
-                class="flex w-full py-2 rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
+                class="flex  rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
               >
                 <img class="w-[18px]" src="/lulus-murni/register/icon-email.svg" alt="img" />
-                <input
+                <input class="w-full py-2"
                   type="email"
                   name="name"
                   id=""
@@ -188,10 +188,10 @@
                 />
               </div>
               <div
-                class="flex w-full py-2 rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
+                class="flex  rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
               >
                 <img class="w-[18px]" src="/lulus-murni/register/icon-phone.svg" alt="img" />
-                <input
+                <input class="w-full py-2"
                   type="number"
                   name="name"
                   id=""
@@ -199,11 +199,11 @@
                 />
               </div>
               <div
-                class="flex justify-between w-full py-2 rounded-lg border-2 pl-2 gap-[8px] mb-[16px]"
+                class="flex justify-between  rounded-lg border-2 pl-2 gap-[8px] mb-[16px]"
               >
                 <div class="flex gap-[8px]">
                   <img src="/lulus-murni/register/icon-password.svg" alt="img" />
-                  <input
+                  <input class="w-full py-2"
                     type="password"
                     name="password"
                     id=""
@@ -219,11 +219,11 @@
                 </button>
               </div>
               <div
-                class="flex justify-between w-full py-2 rounded-lg border-2 pl-2 gap-[8px] mb-[16px]"
+                class="flex justify-between  rounded-lg border-2 pl-2 gap-[8px] mb-[16px]"
               >
                 <div class="flex gap-[8px]">
                   <img src="/lulus-murni/register/icon-password.svg" alt="img" />
-                  <input
+                  <input class="w-full py-2"
                     type="password"
                     name="password"
                     id=""

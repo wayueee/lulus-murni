@@ -1,1 +1,0 @@
-import o from"./D2KCmfaS.js";import{_ as t,c as n,b as r,l as s,o as c}from"./QWNFKcGv.js";import"./BqR9h9qZ.js";const a={components:{RegisterPage:o}};function p(i,_,m,l,d,f){const e=s("RegisterPage");return c(),n("div",null,[r(e)])}const $=t(a,[["render",p]]);export{$ as default};

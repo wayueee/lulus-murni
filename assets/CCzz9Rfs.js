@@ -1,1 +1,0 @@
-import e from"./DDGawUpt.js";import{_ as n,c as t,b as c,l as r,o as s}from"./QWNFKcGv.js";import"./BqR9h9qZ.js";const a={components:{LoginPage:e}};function p(i,_,m,l,d,f){const o=r("LoginPage");return s(),t("div",null,[c(o)])}const $=n(a,[["render",p]]);export{$ as default};

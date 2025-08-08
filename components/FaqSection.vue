@@ -28,18 +28,24 @@
           <div
             v-for="(item, index) in paginatedFaqs"
             :key="index"
-            class="border mt-[10px] rounded-md mb-[16px]  bg-white shadow-md"
+            class="border mt-[10px] rounded-md mb-[16px] bg-white shadow-md"
           >
             <div
               class="flex justify-between items-center p-2 px-3 cursor-pointer"
               @click="toggle(index)"
             >
-              <h3  :class="isOpen === index ? 'text-[#249CD9]': ''" class="font-semibold text-[12px] md:text-[14px]">
+              <h3
+                :class="[isOpen === index ? 'text-[#249CD9]' : '']"
+                class="font-semibold text-[12px] md:text-[14px]"
+              >
                 {{ item.question }}
               </h3>
               <div
                 class="text-[#249CD9] transform transition-transform duration-300"
-                :class="{ 'rotate-90': isOpen === index }"
+                :class="[isOpen === index ? 'rotate-90' : '' ,item.question ===
+                  'Apakah soal di Lulusmurni.com sesuai dengan kisi-kisi terbaru?'
+                    ? 'ml-1 mb-5'
+                    : '' ]"
               >
                 >
               </div>
@@ -52,17 +58,26 @@
             </div>
           </div>
         </div>
-        <div class="hidden md:block">
+        <div class="">
           <div class="flex justify-center gap-2 h-auto my-5">
             <button @click="prevPage" :disabled="currentPage === 0">
-              <img  :class="currentPage === 0 ? 'opacity-60 cursor-not-allowed' : ''"
+              <img
+                :class="
+                  currentPage === 0 ? 'opacity-60 cursor-not-allowed' : ''
+                "
                 src="/lulus-murni/faq-section/next.svg"
                 alt="prev"
                 class="rotate-180"
               />
             </button>
             <button @click="nextPage" :disabled="endIndex >= faqs.length">
-              <img  :class="endIndex >= faqs.length ? 'opacity-60 cursor-not-allowed' : ''" src="/lulus-murni/faq-section/next.svg" alt="next" />
+              <img
+                :class="
+                  endIndex >= faqs.length ? 'opacity-60 cursor-not-allowed' : ''
+                "
+                src="/lulus-murni/faq-section/next.svg"
+                alt="next"
+              />
             </button>
           </div>
         </div>
@@ -92,7 +107,7 @@ export default {
         },
         {
           question:
-            "Apakah soal di Lulusmurni.com sesuai dengan kisi-kisi terbaru? ",
+            "Apakah soal di Lulusmurni.com sesuai dengan kisi-kisi terbaru?",
           answer:
             "Ya, semua soal dibuat berdasarkan referensi terbaru dan disusun oleh tim akademisi berpengalaman agar sesuai dengan kisi-kisi resmi dan tren soal tahun berjalan.",
         },

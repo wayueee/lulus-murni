@@ -141,7 +141,7 @@ export default {
     nextPage() {
       if (this.endIndex < this.faqs.length) {
         this.currentPage++;
-        this.isOpen = null; // tutup semua saat ganti halaman
+        this.isOpen = null;
       }
     },
     prevPage() {

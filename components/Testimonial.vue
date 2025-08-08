@@ -35,7 +35,7 @@
               <button @click="previousTwiter">
                 <img src="/lulus-murni/testimonial/previous.svg" alt="" />
               </button>
-              <button @click="nextTwiter">
+                <button @click="nextTwiter">
                 <img src="/lulus-murni/testimonial/next.svg" alt="" />
               </button>
             </div>

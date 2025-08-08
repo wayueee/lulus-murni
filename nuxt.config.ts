@@ -9,17 +9,31 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  // Tambahkan base URL agar cocok dengan GitHub Pages
+  
   app: {
     baseURL: "/lulus-murni/",
-    buildAssetsDir: "assets", // Ganti <nama-repo> dengan nama repositori GitHub kamu
+    buildAssetsDir: "assets",
+  },
+  vite: {
+    ssr: {
+      noExternal: ["form-data"],
+    },
   },
 
   // Tambahkan preset static agar build ke static
   nitro: {
     preset: "static",
     prerender: {
-      ignore: ["/lulus-murni/product-detail" , "/lulus-murni/product-list", "/lulus-murni/checkout-page", "/lulus-murni/login", "/lulus-murni/register",],
+      ignore: [
+        "/lulus-murni/product-detail",
+        "/lulus-murni/product-list",
+        "/lulus-murni/checkout-page",
+        "/lulus-murni/login",
+        "/lulus-murni/register",
+      ],
     },
+  },
+  alias: {
+    "form-data/lib/browser.js": "form-data",
   },
 });

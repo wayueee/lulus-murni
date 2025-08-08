@@ -46,7 +46,7 @@
             <h1 class="font-semibold text-[20px]">Login.</h1>
             <p class="text-[14px] mb-[12px]">Silakan login dengan akun kamu.</p>
             <div
-              class="flex  rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
+              class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
             >
               <img src="/lulus-murni/login/icon-profile.svg" alt="img" />
               <input class="w-full py-2"
@@ -57,18 +57,16 @@
               />
             </div>
             <div
-              class="flex justify-between  rounded-lg border-2 pl-2 gap-[8px] mb-[16px]"
+              class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
             >
-              <div class="flex gap-[8px]">
-                <img src="/lulus-murni/login/icon-password.svg" alt="img" />
-                <input class="w-full py-2"
-                  type="password"
-                  name="password"
-                  id=""
-                  placeholder="Password"
-                />
-              </div>
-              <button>
+              <img src="/lulus-murni/login/icon-password.svg" alt="img" />
+              <input class="w-full py-2"
+                type="text"
+                name="Password"
+                id=""
+                placeholder="Password"
+              />
+               <button>
                 <img
                   class="pr-[12px]"
                   src="/lulus-murni/login/icon-eye.svg"

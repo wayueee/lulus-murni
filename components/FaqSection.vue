@@ -70,22 +70,37 @@ export default {
         {
           question: "Apakah tryout bisa diakses tanpa login?",
           answer:
-            "",
+            "Kamu bisa mulai tryout dengan mendaftar akun atau langsung checkout paket Tryout yang kamu inginkan di halaman Utama lulusmurni.com!",
         },
         {
-          question: "Apakah hasil skor tryout bisa dijadikan bukti TOEFL resmi?",
+          question: "Apakah soal di Lulusmurni.com sesuai dengan kisi-kisi terbaru? ",
           answer:
-            "",
+            "Ya, semua soal dibuat berdasarkan referensi terbaru dan disusun oleh tim akademisi berpengalaman agar sesuai dengan kisi-kisi resmi dan tren soal tahun berjalan.",
         },
         {
-          question: "Apa metode pembayaran yang tersedia?",
+          question: "Bagaimana cara mengerjakan tryout?",
           answer:
-            "",
+            "Setelah membeli paket tryout, kamu bisa langsung login dan mulai ujian. Kamu bisa mengerjakan tryout dari laptop atau smartphone kapan saja & dimana saja.",
         },
         {
-          question: "lorem ipsum dolor amet",
+          question: "Apakah Tryout-nya bisa diulang?",
           answer:
-            "",
+            "Tentu! Kamu bisa ulang tryout sepuasnya.",
+        },
+        {
+          question: "Apakah hasil tryout bisa diunduh?",
+          answer:
+            "Ya, soal, pembahasan & kunci jawaban bisa kamu unduh dalam format PDF untuk bahan belajar mandiri. ",
+        },
+        {
+          question: "Bagaimana cara melakukan pembayaran?",
+          answer:
+            "Pembayaran bisa dilakukan melalui QRIS, transfer bank, e-wallet (OVO, Dana, GoPay, Shopeepay, LinkAja), dan payment gateway yang kami sediakan. Proses konfirmasi cepat dan otomatis. ",
+        },
+        {
+          question: "Jika ada kendala teknis, siapa yang bisa dihubungi?",
+          answer:
+            "Kamu bisa menghubungi tim support kami melalui WhatsApp atau email ke support@lulusmurni.com. Kami siap membantu.",
         },
       ],
     };

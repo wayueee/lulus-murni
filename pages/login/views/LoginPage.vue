@@ -45,28 +45,28 @@
           <div class="bg-white p-[20px] rounded-lg mt-[42px] mx-auto">
             <h1 class="font-semibold text-[20px]">Login.</h1>
             <p class="text-[14px] mb-[12px]">Silakan login dengan akun kamu.</p>
-            <div
-              class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
-            >
+            <div class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px]">
               <img src="/lulus-murni/login/icon-profile.svg" alt="img" />
-              <input class="w-full py-2"
+              <input
+                class="w-full py-2"
+                v-model="form.username"
                 type="text"
                 name="username"
                 id=""
                 placeholder="Username/Email"
               />
             </div>
-            <div
-              class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
-            >
+            <div class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px]">
               <img src="/lulus-murni/login/icon-password.svg" alt="img" />
-              <input class="w-full py-2"
-                type="text"
+              <input
+                class="w-full py-2"
+                type="password"
+                v-model="form.password"
                 name="Password"
                 id=""
                 placeholder="Password"
               />
-               <button>
+              <button>
                 <img
                   class="pr-[12px]"
                   src="/lulus-murni/login/icon-eye.svg"
@@ -81,6 +81,7 @@
             </div>
             <div class="my-[20px]">
               <button
+                @click.prevent="postLogin"
                 class="w-full py-[12px] rounded-lg border text-center font-semibold text-[14px] bg-[#249CD9] text-white"
               >
                 Login
@@ -111,9 +112,7 @@
             </div>
             <div class="flex justify-center">
               <button class="flex gap-[8px]" @click="toRegisterPage">
-                <h1>
-                  Belum Punya akun?
-                </h1>
+                <h1>Belum Punya akun?</h1>
                 <span class="underline text-[#249CD9]">Daftar</span>
               </button>
             </div>
@@ -141,32 +140,30 @@
           <div class="bg-white p-[20px] rounded-lg">
             <h1 class="font-semibold text-[16px]">Login.</h1>
             <p class="text-[12px] mb-[12px]">Silakan login dengan akun kamu.</p>
-            <div
-              class="flex  rounded-lg border-2 pl-2 gap-[8px] mb-[12px]"
-            >
+            <div class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px]">
               <img src="/lulus-murni/login/icon-profile.svg" alt="img" />
-              <input class="w-full py-2"
+              <input
+                class="w-full py-2 text-sm"
+                v-model="form.username"
                 type="text"
                 name="username"
                 id=""
                 placeholder="Username/Email"
               />
             </div>
-            <div
-              class="flex justify-between rounded-lg border-2 pl-2 gap-[8px] mb-[16px]"
-            >
-              <div class="flex gap-[8px]">
-                <img src="/lulus-murni/login/icon-password.svg" alt="img" />
-                <input class="w-full py-2"
-                  type="password"
-                  name="password"
-                  id=""
-                  placeholder="Password"
-                />
-              </div>
-              <button class="pr-5">
+            <div class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px]">
+              <img src="/lulus-murni/login/icon-password.svg" alt="img" />
+              <input
+                class="w-full py-2 text-sm"
+                v-model="form.password"
+                type="password"
+                name="Password"
+                id=""
+                placeholder="Password"
+              />
+              <button>
                 <img
-                  class=""
+                  class="pr-[12px]"
                   src="/lulus-murni/login/icon-eye.svg"
                   alt="img"
                 />
@@ -221,15 +218,46 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  methods:{
-    toRegisterPage(){
-       this.$router.push(`/register`)
-     }
-  }
-}
+  data() {
+    return {
+      form: {
+        username: "",
+        password: "",
+      },
+      loginData: null,
+    };
+  },
+  mounted() {
+    this.postLogin();
+  },
+  methods: {
+    async postLogin() {
+      try {
+        const formData = new FormData();
+        formData.append("username", this.form.username);
+        formData.append("password", this.form.password);
+
+        const response = await axios.post("https://lulusmurni.com/api/login", formData);
+        this.loginData = response.data;
+        console.log("Data login:", this.loginData);
+
+        if (
+          this.loginData.status === "success" &&
+          this.loginData.data?.redirect
+        ) {
+          window.location.href = this.loginData.data.redirect;
+        }
+      } catch (err) {
+        console.error("Gagal login:", err);
+      }
+    },
+    toRegisterPage() {
+      this.$router.push(`/register`);
+    },
+  },
+};
 </script>
 
-<style>
-  
-</style>
+<style></style>

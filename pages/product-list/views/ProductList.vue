@@ -162,7 +162,7 @@ export default {
         if (data.success && data.data) {
           this.productList = data.data.data;
           this.filteredList = this.productList;
-          console.log("data product" + this.productList);
+          // console.log("data product" + this.productList);
         } else {
           console.error("Gagal data product:", data.message);
         }
@@ -191,6 +191,7 @@ export default {
     },
   },
   async mounted() {
+    
     await this.getProductList(); // ⬅️ Tunggu data selesai masuk
 
     const name = localStorage.getItem("selectedName");

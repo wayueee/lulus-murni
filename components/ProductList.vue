@@ -129,7 +129,7 @@ export default {
         const data = response.data;
         if (data.success && data.data) {
           this.productList = data.data.data;
-          console.log("data product" + this.productList);
+          // console.log("data product" + this.productList);
         } else {
           console.error("Gagal data product:", data.message);
         }

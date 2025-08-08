@@ -79,59 +79,10 @@ export default {
       showCount: 4,
       categories: [],
       data: [],
-      // cards: [
-      //   {
-      //     image: "/lulus-murni/category/toefl.png",
-      //     name: "TOEFL",
-      //     price: "Rp.0",
-      //     paket: "2 Paket Tersedia",
-      //     benefits: ["Pembahasan Lengkap", "Dilengkapi Skor Prediksi & Ulasan"],
-      //   },
-      //   {
-      //     image: "/lulus-murni/category/bumn.png",
-      //     name: "BUMN",
-      //     price: "Rp.30.000",
-      //     paket: "2 Paket Tersedia",
-      //     benefits: [
-      //       "Simulasi Real-time + Pembahasan",
-      //       "Hasil Instan & Download Soal",
-      //     ],
-      //   },
-      //   {
-      //     image: "/lulus-murni/category/polri.png",
-      //     name: "POLRI",
-      //     price: "Rp.99.000",
-      //     paket: "2 Paket Tersedia",
-      //     benefits: [
-      //       "Soal Prediktif Kisi-kisi Terbaru",
-      //       "Dilengkapi Skor Prediksi & Ulasan",
-      //     ],
-      //   },
-      //   {
-      //     image: "/lulus-murni/category/cpns.png",
-      //     name: "CPNS",
-      //     price: "Rp.0",
-      //     paket: "4 Paket Tersedia",
-      //     benefits: ["Soal Akurat Standar BKN", "Simulasi Jitu + Pembahasan"],
-      //   },
-      //   {
-      //     image: "/lulus-murni/category/pppk.png",
-      //     name: "PPPK",
-      //     price: "Rp.0",
-      //     paket: "4 Paket Tersedia",
-      //     benefits: ["Soal Akurat Standar BKN", "Simulasi Jitu + Pembahasan"],
-      //   },
-      //   {
-      //     image: "/lulus-murni/category/sekdin.png",
-      //     name: "SEKDIN",
-      //     price: "Rp.0",
-      //     paket: "4 Paket Tersedia",
-      //     benefits: ["Soal Akurat Standar BKN", "Simulasi Jitu + Pembahasan"],
-      //   },
-      // ],
     };
   },
   mounted() {
+    
     this.getCategories();
   },
   methods: {

@@ -359,7 +359,7 @@
             <div v-for="addOns in selectedType" :key="addOns">
               <div class="flex justify-between">
                 <p class="text-[12px] grid grid-cols-2">{{ addOns.name }}</p>
-                <span class="text-[12px] font-medium">{{
+                <span class="text-[12px] font-medium">Rp{{
                   formatPrice(addOns.price)
                 }}</span>
               </div>

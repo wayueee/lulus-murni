@@ -32,7 +32,7 @@
             <select
               v-model="selected"
               @change="searchProduct"
-              class="w-full text-sm md:text-base md:w-[275px] xl:w-[268px] h-[40px] md:h-[43px] border-2 rounded-lg px-2"
+              class="w-full text-sm cursor-pointer md:text-base md:w-[275px] xl:w-[268px] h-[40px] md:h-[43px] border-2 rounded-lg px-2"
             >
               <option hidden value="">Pilih kategori</option>
               <option value="All">All</option>
@@ -105,18 +105,6 @@
               </h1>
             </div>
             <div>
-              <!-- <div
-                class="flex md:grid md:grid-cols-2 gap-5 md:gap-0 overflow-hidden"
-              >
-                <div
-                  class="flex gap-1 text-[11px] my-1"
-                  v-for="type in category.types"
-                  :key="type"
-                >
-                  <img :src="`${type.ImageURL}`" :alt="type.Name" />
-                  <h1>{{ type.Name }}</h1>
-                </div>
-              </div> -->
               <div>
                 <ShowModal :category="category" />
                 <hr />
@@ -126,7 +114,7 @@
                 </div>
                 <div class="my-1">
                   <button
-                    @click="ToProductDetail(category.URL)"
+                    @click="ToProductDetail(category)"
                     class="bg-[#249CD9] font-semibold text-center w-full h-[45px] lg:h-[40px] rounded-lg text-white"
                   >
                     Beli Paket
@@ -172,9 +160,9 @@ export default {
         this.loading = false;
       }
     },
-    ToProductDetail(value) {
-      this.$router.push(`/product-detail/${value.search}`);
-    },
+    // ToProductDetail(value) {
+    //   this.$router.push(`/product-detail/${value.search}`);
+    // },
     searchProduct() {
       const keyword = this.searchQuery.toLowerCase();
       if (keyword && this.selected !== "All") {
@@ -189,31 +177,30 @@ export default {
         return matchCategory && matchKeyword;
       });
     },
+    ToProductDetail(category) {
+      const saved = {
+        name: category.Name || "",
+        image: category.ImageURL || "",
+        price: category.Price || "",
+        category: category.Category || "",
+      };
+      console.log(saved);
+      localStorage.setItem("selectedProductList", JSON.stringify(saved));
+      this.$router.push(`/product-detail/${category.Category}`);
+    },
   },
   async mounted() {
-    
-    await this.getProductList(); // ⬅️ Tunggu data selesai masuk
+    await this.getProductList(); 
 
     const name = localStorage.getItem("selectedName");
     if (name) {
       const data = JSON.parse(name);
       this.selectedByName = data.name;
       this.selected = data.name;
-      this.searchProduct(); // ⬅️ Sekarang aman dipanggil
+      this.searchProduct();
       console.log(data.name);
     }
   },
-  // computed: {
-  //   filteredList() {
-  //     if (this.selected === "" || this.selected === "All") {
-  //       return this.productList;
-  //     } else {
-  //       return this.productList.filter(
-  //         (item) => item.Category === this.selected
-  //       );
-  //     }
-  //   },
-  // },
 };
 </script>
 

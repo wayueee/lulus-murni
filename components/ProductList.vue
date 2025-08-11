@@ -7,7 +7,7 @@
         </h1>
         <select
           v-model="selected"
-          class="w-full md:w-[275px] xl:w-[268px] h-[43px] border-2 rounded-lg px-2"
+          class="w-full md:w-[275px] cursor-pointer xl:w-[268px] h-[43px] border-2 rounded-lg px-2"
         >
           <option hidden value="">Pilih kategori</option>
           <option value="All">All</option>
@@ -78,11 +78,11 @@
                 <hr />
                 <div class="flex justify-between my-3">
                   <p class="text-sm">Harga</p>
-                  <p class="font-semibold">Rp{{ category.Price }}</p>
+                  <p class="font-semibold">Rp{{category.Price }}</p>
                 </div>
                 <div class="my-1">
                   <button
-                    @click="showApapun"
+                    @click="ToProductDetail(category)"
                     class="bg-[#249CD9] font-semibold text-center w-full h-[45px] lg:h-[40px] rounded-lg text-white"
                   >
                     Beli Paket
@@ -139,10 +139,28 @@ export default {
         this.loading = false;
       }
     },
+     ToProductDetail(category) {
+      const saved = {
+        name: category.Name || "",
+        image: category.ImageURL || "",
+        price: category.Price || "",
+        category: category.Category || "",
+      };
+      console.log(saved);
+      localStorage.setItem("selectedProductList", JSON.stringify(saved));
+      this.$router.push(`/product-detail/${category.Category}`);
+    },
+    //     handleHash(hashtag){
+      
+    // }
   },
-  mounted() {
-    this.getProductList();
+  async mounted() {
+    await this.getProductList();
+    // this.handleHash(window.location.hash)
   },
+  //   watch:{
+  //   "$route.hash" : "handleHash"
+  // },
   computed: {
     filteredList() {
   if (this.selected === "" || this.selected === "All") {

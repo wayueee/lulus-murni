@@ -1,15 +1,33 @@
 <template>
-  <div class="bg-[#3B3D3E] ">
-    <div class="relative container" >
-      <div
-      class=" mt-[30px] text-white pt-[52px] lg:pt-[146px] pb-[50px] "
-      >
-      <img  class="absolute hidden lg:block left-3 xl:left-[82px] top-[452px]" src="/lulus-murni/testimonial/icon.svg" alt="icon">
-      <img  class="absolute hidden lg:block right-16 top-[73px] w-[110px] h-auto" src="/lulus-murni/testimonial/vector-book.svg" alt="vector-book">
-      <img  class="absolute hidden lg:block right-8 top-[190px] xl:top-[173px] w-[78px] h-auto" src="/lulus-murni/testimonial/star-ballon.svg" alt="star">
-      <img  class="absolute lg:hidden left-[24px] top-[30px] w-[12px] h-auto" src="/lulus-murni/testimonial/icon.svg" alt="icon">
-      <img  class="absolute lg:hidden right-0 top-[108px] w-[53px] h-auto" src="/lulus-murni/testimonial/vector-book.svg" alt="vector-book">
-      <div class="flex justify-center">
+  <div class="bg-[#3B3D3E]">
+    <div class="relative container">
+      <div class="mt-[30px] text-white pt-[52px] lg:pt-[146px] pb-[50px]">
+        <img
+          class="absolute hidden lg:block left-3 xl:left-[82px] top-[452px]"
+          src="/lulus-murni/testimonial/icon.svg"
+          alt="icon"
+        />
+        <img
+          class="absolute hidden lg:block right-16 top-[73px] w-[110px] h-auto"
+          src="/lulus-murni/testimonial/vector-book.svg"
+          alt="vector-book"
+        />
+        <img
+          class="absolute hidden lg:block right-8 top-[190px] xl:top-[173px] w-[78px] h-auto"
+          src="/lulus-murni/testimonial/star-ballon.svg"
+          alt="star"
+        />
+        <img
+          class="absolute lg:hidden left-[24px] top-[30px] w-[12px] h-auto"
+          src="/lulus-murni/testimonial/icon.svg"
+          alt="icon"
+        />
+        <img
+          class="absolute lg:hidden right-0 top-[108px] w-[53px] h-auto"
+          src="/lulus-murni/testimonial/vector-book.svg"
+          alt="vector-book"
+        />
+        <div class="flex justify-center">
           <h1
             class="text-center text-[14px] lg:text-[24px] xl:w-[815px] xl:h-[80px] font-semibold"
           >
@@ -33,14 +51,21 @@
             </div>
             <div class="flex w-[50px] gap-[10px] md:w-[60px] h-auto">
               <button @click="previousTwiter">
-                <img src="/lulus-murni/testimonial/previous.svg" alt="" />
+                <img
+                  class="rotate-180"
+                  :class="!canScrollLeftTwitter ? 'opacity-60 cursor-no-drop' : ''"
+                  src="/lulus-murni/testimonial/next.svg"
+                  alt=""
+                />
               </button>
-                <button @click="nextTwiter">
-                <img src="/lulus-murni/testimonial/next.svg" alt="" />
+              <button @click="nextTwiter">
+                <img :class="!canScrollRightTwitter ? 'opacity-60 cursor-no-drop' : ''" src="/lulus-murni/testimonial/next.svg" alt="" />
               </button>
             </div>
           </div>
-          <div ref="scrollTwitter"
+          <div
+            @scroll="checkScrollTwitter"
+            ref="scrollTwitter"
             class="hide-scroll-bar overflow-auto whitespace-nowrap scroll-smooth"
           >
             <div class="flex w-[1000px] lg:w-[1200px] xl:w-[1500px]">
@@ -66,21 +91,32 @@
             </div>
             <div class="flex w-[50px] gap-[10px] md:w-[60px] h-auto">
               <button @click="previousTiktok">
-                <img src="/lulus-murni/testimonial/previous.svg" alt="" />
+                <img
+                  class="rotate-180"
+                  :class="!canScrollLeftTiktok ? 'opacity-60 cursor-no-drop' : ''"
+                  src="/lulus-murni/testimonial/next.svg"
+                  alt=""
+                />
               </button>
               <button @click="nextTiktok">
-                <img src="/lulus-murni/testimonial/next.svg" alt="" />
+                <img :class="!canScrollRightTiktok ? 'opacity-60 cursor-no-drop' : ''" src="/lulus-murni/testimonial/next.svg" alt="" />
               </button>
             </div>
           </div>
-          <div ref="scrollTiktok"
+          <div
+            @scroll="checkScrollTiktok"
+            ref="scrollTiktok"
             class="hide-scroll-bar overflow-auto whitespace-nowrap scroll-smooth"
           >
             <div class="flex w-[1000px] lg:w-[1200px] xl:w-[1500px]">
-              <div class="mx-1" v-for="tiktokPost in tiktokPosts" :key="tiktokPost">
+              <div
+                class="mx-1"
+                v-for="tiktokPost in tiktokPosts"
+                :key="tiktokPost"
+              >
                 <div class="relative">
                   <img
-                    class="h-[210px] lg:h-[260px] xl:h-[320px]"
+                    class="h-[210px] lg:h-[260px] rounded-lg xl:h-[320px]"
                     :src="`/lulus-murni${tiktokPost}`"
                     alt="icon-x"
                   />
@@ -110,6 +146,10 @@
 export default {
   data() {
     return {
+      canScrollLeftTwitter: false,
+      canScrollRightTwitter: true,
+      canScrollLeftTiktok: false,
+      canScrollRightTiktok: true,
       xPosts: [
         "/lulus-murni/testimonial/x-post.png",
         "/lulus-murni/testimonial/x-post.png",
@@ -128,22 +168,38 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.checkScrollTwitter();
+    this.checkScrollTiktok();
+  },
   methods: {
-    nextTwiter (){
-      const next = this.$refs.scrollTwitter
-      next.scrollLeft += 200
+    nextTwiter() {
+      const scroll = this.$refs.scrollTwitter;
+      scroll.scrollBy({ left: 200 });
     },
-    previousTwiter (){
-      const next = this.$refs.scrollTwitter
-      next.scrollLeft -= 200
+    previousTwiter() {
+      const scroll = this.$refs.scrollTwitter;
+      scroll.scrollBy({ left: -200 });
     },
-    nextTiktok (){
-      const next = this.$refs.scrollTiktok
-      next.scrollLeft += 200
+    nextTiktok() {
+      const scroll = this.$refs.scrollTiktok;
+      scroll.scrollBy({ left: 200 });
     },
-    previousTiktok (){
-      const next = this.$refs.scrollTiktok
-      next.scrollLeft -= 200
+    previousTiktok() {
+      const scroll = this.$refs.scrollTiktok;
+      scroll.scrollBy({ left: -200 });
+    },
+    checkScrollTwitter() {
+      const scroll = this.$refs.scrollTwitter;
+      this.canScrollLeftTwitter = scroll.scrollLeft > 0;
+      this.canScrollRightTwitter =
+        scroll.scrollLeft + scroll.clientWidth < scroll.scrollWidth - 1;
+    },
+    checkScrollTiktok() {
+      const scroll = this.$refs.scrollTiktok;
+      this.canScrollLeftTiktok = scroll.scrollLeft > 0;
+      this.canScrollRightTiktok =
+        scroll.scrollLeft + scroll.clientWidth < scroll.scrollWidth - 1;
     },
   },
 };

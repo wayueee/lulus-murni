@@ -28,23 +28,23 @@
           <div
             v-for="(item, index) in paginatedFaqs"
             :key="index"
-            class="border mt-[10px] rounded-md mb-[16px] bg-white shadow-md"
+            class="border mt-[10px] py-2 rounded-md mb-[16px] bg-white shadow-md"
           >
             <div
               class="flex justify-between items-center p-2 px-3 cursor-pointer"
               @click="toggle(index)"
             >
               <h3
-                :class="[isOpen === index ? 'text-[#249CD9]' : '']"
-                class="font-semibold text-[12px] md:text-[14px]"
+                :class="[isOpen === index ? 'text-[#249CD9] font-semibold' : '']"
+                class=" text-[12px] md:text-[14px]"
               >
                 {{ item.question }}
               </h3>
               <div
-                class="text-[#249CD9] transform transition-transform duration-300"
+                class="text-[#249CD9] font-semibold transform transition-transform duration-300"
                 :class="[isOpen === index ? 'rotate-90' : '' ,item.question ===
                   'Apakah soal di Lulusmurni.com sesuai dengan kisi-kisi terbaru?'
-                    ? 'ml-1 mb-5'
+                    ? 'ml-1 mb-5 lg:ml-0 lg:mb-0'
                     : '' ]"
               >
                 >
@@ -59,7 +59,7 @@
           </div>
         </div>
         <div class="">
-          <div class="flex justify-center gap-2 h-auto my-5">
+          <div class="flex justify-center gap-2 lg:gap-[20px] h-auto my-5">
             <button @click="prevPage" :disabled="currentPage === 0">
               <img
                 :class="

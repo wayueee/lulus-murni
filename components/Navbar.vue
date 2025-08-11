@@ -20,7 +20,7 @@
             class="flex flex-col justify-between w-[20px] h-[20px] transform duration-300 overflow-hidden"
           >
             <div
-              class="bg-black/50 h-[1.5px] w-7 transform duration-300"
+              class="bg-black/50 h-[2px] w-7 transform duration-300"
               :class="[isOpen ? 'translate-x-5' : '']"
             ></div>
             <div

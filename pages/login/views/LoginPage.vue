@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- Desktop view -->
     <div class="hidden lg:block">
       <div class="grid grid-cols-2">
         <div
@@ -45,10 +46,17 @@
           <div class="bg-white p-[20px] rounded-lg mt-[42px] mx-auto">
             <h1 class="font-semibold text-[20px]">Login.</h1>
             <p class="text-[14px] mb-[12px]">Silakan login dengan akun kamu.</p>
-            <div class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px]">
+            <div
+              class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px] pr-1"
+              :class="
+                form.username.length !== 0
+                  ? 'border-2 hover:border-[#249CD9] rounded-lg'
+                  : ' '
+              "
+            >
               <img src="/lulus-murni/login/icon-profile.svg" alt="img" />
               <input
-                class="w-full py-2"
+                class="w-full py-2 outline-none text-[14px]"
                 v-model="form.username"
                 type="text"
                 name="username"
@@ -56,10 +64,17 @@
                 placeholder="Username/Email"
               />
             </div>
-            <div class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px]">
+            <div
+              class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px] pr-1"
+              :class="
+                form.password.length !== 0
+                  ? 'border-2 hover:border-[#249CD9] rounded-lg'
+                  : ' '
+              "
+            >
               <img src="/lulus-murni/login/icon-password.svg" alt="img" />
               <input
-                class="w-full py-2"
+                class="w-full py-2 outline-none text-[14px]"
                 type="password"
                 v-model="form.password"
                 name="Password"
@@ -75,14 +90,14 @@
               </button>
             </div>
             <div class="flex justify-end">
-              <button class="text-[#249CD9] font-semibold text-[14px]">
+              <button class="text-[#249CD9] font-semibold text-[14px] hover:opacity-60">
                 Lupa Password?
               </button>
             </div>
             <div class="my-[20px]">
               <button
                 @click.prevent="postLogin"
-                class="w-full py-[12px] rounded-lg border text-center font-semibold text-[14px] bg-[#249CD9] text-white"
+                class="w-full py-[12px] rounded-lg border text-center font-semibold text-[14px] bg-[#249CD9] text-white hover:opacity-60"
               >
                 Login
               </button>
@@ -107,19 +122,21 @@
                 class="flex w-full gap-[8px] py-[12px] border-2 justify-center rounded-lg"
               >
                 <img src="/lulus-murni/login/icon-google.svg" alt="icon" />
-                <h1>Login dengan Google</h1>
+                <h1 class="text-[12px] lg:text-[14px] hover:opacity-60">Login dengan Google</h1>
               </button>
             </div>
-            <div class="flex justify-center">
+            <div class="flex justify-center hover:opacity-60">
               <button class="flex gap-[8px]" @click="toRegisterPage">
-                <h1>Belum Punya akun?</h1>
-                <span class="underline text-[#249CD9]">Daftar</span>
+                <h1 class="text-[12px] lg:text-[14px]">Belum Punya akun?</h1>
+                <span class="underline text-[#249CD9] text-[12px]">Daftar</span>
               </button>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Mobile view -->
     <div
       class="w-full lg:hidden bg-cover h-[390px]"
       style="
@@ -140,10 +157,17 @@
           <div class="bg-white p-[20px] rounded-lg">
             <h1 class="font-semibold text-[16px]">Login.</h1>
             <p class="text-[12px] mb-[12px]">Silakan login dengan akun kamu.</p>
-            <div class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px]">
+            <div
+              class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px] pr-1"
+              :class="
+                form.username.length !== 0
+                  ? 'border-2 hover:border-[#249CD9] rounded-lg'
+                  : ' '
+              "
+            >
               <img src="/lulus-murni/login/icon-profile.svg" alt="img" />
               <input
-                class="w-full py-2 text-sm"
+                class="w-full py-2 text-[12px] lg:text-[14px] outline-none"
                 v-model="form.username"
                 type="text"
                 name="username"
@@ -151,10 +175,17 @@
                 placeholder="Username/Email"
               />
             </div>
-            <div class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px]">
+            <div
+              class="flex rounded-lg border-2 pl-2 gap-[8px] mb-[12px] pr-1"
+              :class="
+                form.password.length !== 0
+                  ? 'border-2 hover:border-[#249CD9] rounded-lg'
+                  : ' '
+              "
+            >
               <img src="/lulus-murni/login/icon-password.svg" alt="img" />
               <input
-                class="w-full py-2 text-sm"
+                class="w-full py-2 text-[12px] lg:text-[14px] outline-none"
                 v-model="form.password"
                 type="password"
                 name="Password"
@@ -170,13 +201,15 @@
               </button>
             </div>
             <div class="flex justify-end">
-              <button class="text-[#249CD9] font-semibold text-[14px]">
+              <button
+                class="text-[#249CD9] font-semibold text-[12px] lg:text-[14px] hover:opacity-60"
+              >
                 Lupa Password?
               </button>
             </div>
             <div class="my-[20px]">
               <button
-                class="w-full py-2 rounded-lg border text-center font-semibold text-[14px] bg-[#249CD9] text-white"
+                class="text-[12px] lg:text-[14px] w-full py-2 rounded-lg border text-center font-semibold bg-[#249CD9] text-white hover:opacity-60"
               >
                 Login
               </button>
@@ -196,18 +229,26 @@
                 alt="icon"
               />
             </div>
-            <div class="my-[20px]">
+            <div class="my-[20px] hover:opacity-60">
               <button
                 class="flex w-full py-2 border-2 justify-center rounded-lg"
               >
                 <img src="/lulus-murni/login/icon-google.svg" alt="icon" />
-                <h1 class="text-[14px] mt-1">Login dengan Google</h1>
+                <h1 class="text-[12px] lg:text-[14px] mt-1">
+                  Login dengan Google
+                </h1>
               </button>
             </div>
-            <div class="flex justify-center">
-              <button class="text-[14px]" @click="toRegisterPage">
+            <div class="flex justify-center hover:opacity-60">
+              <button
+                class="text-[12px] lg:text-[14px]"
+                @click="toRegisterPage"
+              >
                 Belum Punya akun?
-                <span class="underline text-[#249CD9]">Daftar</span>
+                <span
+                  class="underline text-[12px] lg:text-[14px] text-[#249CD9]"
+                  >Daftar</span
+                >
               </button>
             </div>
           </div>
@@ -239,7 +280,10 @@ export default {
         formData.append("username", this.form.username);
         formData.append("password", this.form.password);
 
-        const response = await axios.post("https://lulusmurni.com/api/login", formData);
+        const response = await axios.post(
+          "https://lulusmurni.com/api/login",
+          formData
+        );
         this.loginData = response.data;
         console.log("Data login:", this.loginData);
 

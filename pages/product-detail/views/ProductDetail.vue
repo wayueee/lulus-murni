@@ -11,7 +11,7 @@
       </nuxt-link>
       <nuxt-link
         class="flex text-[12px] mt-1"
-        :to="`/product-list/${product.search}`"
+        :to="`/product-list/${categories.search}`"
         >Product List </nuxt-link
       ><span class="mx-1 mb-1">></span>
       <nuxt-link
@@ -20,20 +20,22 @@
         >Product Detail
       </nuxt-link>
     </div>
-    <div v-if="product">
+    <div v-if="categories">
       <div class="mb-[20px]">
         <img
           class="w-full h-auto mb-[12px] mt-[20px]"
-          :src="`/lulus-murni${product.image}`"
+          :src="`${categories.image}`"
           alt=""
         />
       </div>
       <div class="lg:grid lg:grid-cols-3">
         <div class="col-span-2 lg:mr-10">
-          <h2 class="font-semibold text-[14px] py-[4px]">{{ product.name }}</h2>
+          <h2 class="font-semibold text-[14px] py-[4px]">
+            {{ categories.name }}
+          </h2>
           <div class="flex gap-[8px] text-[14px]">
             <p class="text-[#0683C2] font-semibold">
-              Rp.{{ (product.price * selectedPack.number || 1).toFixed(3) }}
+              Rp{{ formatPrice(categories.price * selectedPack.number || 1) }}
             </p>
             <div class="relative">
               <img
@@ -47,7 +49,7 @@
           <hr class="mt-[8px]" />
           <h1 class="my-[8px] text-[12px] font-medium">Pilih Paket</h1>
           <div class="flex flex-wrap gap-[12px]">
-            <div class="" v-for="(pack, index) in product.pack" :key="index">
+            <div class="" v-for="(pack, index) in packs" :key="index">
               <button
                 class="after:border-[#F78012] hover:border-[#F78012] rounded-lg border p-[8px] text-[11px] hover:font-medium"
                 :class="{
@@ -65,7 +67,7 @@
           <div class="grid grid-cols-2 md:flex gap-[8px] mb-[36px]">
             <div
               class="md:pr-[8px] flex relative"
-              v-for="(type, index) in product.types"
+              v-for="(type, index) in types"
               :key="index"
             >
               <div class="mr-[5px]">
@@ -198,7 +200,7 @@
             >
               <h1 class="text-[14px] md:text-[16px]">TOTAL</h1>
               <h1 class="text-[14px] md:text-[16px]">
-                Rp.{{ totalPrice.toFixed(3) }}
+                Rp{{ formatPrice(totalPrice) }}
               </h1>
             </div>
             <div class="flex justify-end pb-3">
@@ -232,7 +234,7 @@
                   <div class="flex justify-between text-[12px] mb-1">
                     <p class="text-black/60 font-medium">Nama Paket</p>
                     <p class="text-right font-medium text-gray-800">
-                      {{ product.name }}
+                      {{ categories.name }}
                     </p>
                   </div>
 
@@ -252,9 +254,16 @@
                     <p class="text-black/60">Harga Paket</p>
                     <p>
                       Rp{{
-                        (product.price * selectedPack.number || 1).toFixed(3)
+                        formatPrice(categories.price * selectedPack.number || 1)
                       }}
                     </p>
+                  </div>
+                  <div
+                    v-if="promoActive"
+                    class="flex justify-between items-center border-t border-gray-200 pt-2 text-[12px] font-medium text-gray-800 mb-3"
+                  >
+                    <p class="text-black/60">{{ promoActive }}</p>
+                    <p>Rp{{ formatPrice(discount) }}</p>
                   </div>
 
                   <!-- Add-Ons -->
@@ -268,7 +277,7 @@
                   >
                     <p>• {{ addOns.name }}</p>
                     <span class="font-medium"
-                      >Rp{{ addOns.price.toFixed(3) }}</span
+                      >Rp{{ formatPrice(addOns.price) }}</span
                     >
                   </div>
 
@@ -277,7 +286,7 @@
                     class="border-t border-gray-200 mt-3 pt-3 flex justify-between font-semibold text-[13px]"
                   >
                     <p>Total</p>
-                    <p>Rp{{ totalPrice.toFixed(3) }}</p>
+                    <p>Rp{{ formatPrice(totalPrice) }}</p>
                   </div>
                 </div>
               </div>
@@ -285,20 +294,27 @@
             <h4 class="text-[12px] md:text-[14px] pb-3">
               Kode Promo <span class="text-[#F78012]">(opsional)</span>
             </h4>
-            <div class="flex gap-[16px] mb-4">
-              <input
-                class="border-2 pl-3 rounded-lg w-full py-2"
-                type="text"
-                placeholder="XYZ234"
-              />
-              <button
-                class="border-2 border-[#249CD9] rounded-lg text-[#249CD9] px-2 font-semibold"
-              >
-                Apply
-              </button>
+            <div class="mb-4">
+              <div class="flex gap-[16px]">
+                <input
+                  class="border-2 pl-3 rounded-lg w-full py-2"
+                  type="text"
+                  placeholder="XYZ234"
+                  v-model="codePromo"
+                />
+                <button
+                  @click="applyPromo"
+                  class="border-2 border-[#249CD9] rounded-lg text-[#249CD9] px-2 font-semibold"
+                >
+                  Apply
+                </button>
+              </div>
+              <p class="mt-1 text-green-500 text-[12px] lg:text-[14px]" v-if="promoSuccess">
+                {{ promoSuccess }} <span class="font-semibold"> Rp{{ discount }}</span>
+              </p>
             </div>
             <button
-              @click="toCheckoutPage(product.search)"
+              @click="toCheckoutPage(categories.search)"
               class="w-full bg-[#249CD9] text-white font-semibold py-2 rounded-lg mb-5"
             >
               Pesan Sekarang
@@ -311,7 +327,7 @@
             <h1 class="font-semibold text-[14px] mb-[4px]">Rincian Harga</h1>
             <div class="flex gap-[20px] justify-between">
               <h1 class="text-[12px]">Nama Paket</h1>
-              <h1 class="text-[12px] font-medium">{{ product.name }}</h1>
+              <h1 class="text-[12px] font-medium">{{ categories.name }}</h1>
             </div>
             <div>
               <div class="flex gap-1 justify-end">
@@ -326,10 +342,17 @@
               <div class="flex justify-between">
                 <h1 class="text-[14px]">harga Paket</h1>
                 <div>
-                  <span>{{
-                    (product.price * selectedPack.number || 1).toFixed(3)
+                  <span>Rp{{
+                    formatPrice(categories.price * selectedPack.number || 1)
                   }}</span>
                 </div>
+              </div>
+              <div
+                v-if="promoActive"
+                class="flex justify-between"
+              >
+                <p class="text-[14px]">{{ promoActive }}</p>
+                <p>Rp{{ formatPrice(discount) }}</p>
               </div>
             </div>
             <h1 class="text-[14px] mt-2 font-semibold">Add ons</h1>
@@ -337,7 +360,7 @@
               <div class="flex justify-between">
                 <p class="text-[12px] grid grid-cols-2">{{ addOns.name }}</p>
                 <span class="text-[12px] font-medium">{{
-                  addOns.price.toFixed(3)
+                  formatPrice(addOns.price)
                 }}</span>
               </div>
             </div>
@@ -346,25 +369,33 @@
             <div class="flex justify-between font-semibold pt-5">
               <h1 class="text-[14px] font-semibold">TOTAL</h1>
               <h1 class="text-[14px] font-semibold">
-                Rp.{{ totalPrice.toFixed(3) }}
+                Rp{{ formatPrice(totalPrice) }}
               </h1>
             </div>
             <h4 class="font-medium text-[12px] md:text-[14px] py-3">
               Kode Promo <span class="text-[#F78012]">(opsional)</span>
             </h4>
-            <div class="flex gap-[16px] mb-4">
-              <input
-                class="border-2 pl-3 rounded-lg w-full py-2"
-                type="text"
-                placeholder="XYZ234"
-              />
-              <button
-                class="border-2 border-[#249CD9] rounded-lg text-[#249CD9] px-2 font-semibold"
-              >
-                Apply
-              </button>
+            <div class="mb-4">
+              <div class="flex gap-[16px]">
+                <input
+                  class="border-2 pl-3 rounded-lg w-full py-2"
+                  type="text"
+                  placeholder="XYZ234"
+                  v-model="codePromo"
+                />
+                <button
+                  @click="applyPromo"
+                  class="border-2 border-[#249CD9] rounded-lg text-[#249CD9] px-2 font-semibold"
+                >
+                  Apply
+                </button>
+              </div>
+              <p class="mt-1 text-green-500 text-[12px] lg:text-[14px]" v-if="promoSuccess">
+                {{ promoSuccess }} <span class="font-semibold"> Rp{{ discount }}</span>
+              </p>
             </div>
-            <button @click="toCheckoutPage(product.search)"
+            <button
+              @click="toCheckoutPage(categories.search)"
               class="w-full bg-[#249CD9] text-white font-semibold py-2 rounded-lg mb-5"
             >
               Pesan Sekarang
@@ -384,6 +415,11 @@ export default {
   data() {
     return {
       isShowDetailPrice: false,
+      codePromo: "",
+      promoSuccess: "",
+      discount: 0,
+      promoActive: "",
+      promoError: "",
       selectedType: [],
       selectedPack: {
         number: 1,
@@ -412,149 +448,75 @@ export default {
         "Bobot soal sesuai aturan terbaru, raport nilai hasil tryout, dan sistem peringkat nasional, kamu juga bisa mengerjakannya berulang kali tanpa batas untuk hasil maksimal.",
         "Beli sekali untuk akses selamanya!",
       ],
-      categories: [
+      categories: {
+        name: "",
+        image: "",
+        price: 0,
+        category: "",
+        showModal: false,
+      },
+      packs: [
         {
-          image: "/lulus-murni/product-list/toefl.png",
-          name: "Paket Simulasi Premium All-in TOEFL ITP",
-          pack: [
-            {
-              number: 1,
-              isOpen: true,
-              name: "Paket Tryout",
-              title: "(Unlimited 1 tahun)",
-            },
-            {
-              number: 2,
-              isOpen: true,
-              name: "Paket Tryout",
-              title: "(Unlimited 1 tahun)",
-            },
-            {
-              number: 5,
-              isOpen: true,
-              name: "Paket Tryout",
-              title: "(Unlimited 1 tahun)",
-            },
-          ],
-          types: [
-            {
-              name: "Retry",
-              price: 50.0,
-              toolTipsImage: "/lulus-murni/product-detail/toolTip.svg",
-              isShowTips: false,
-              checkbox: "/lulus-murni/product-detail/checkbox.svg",
-              onClickCheckbox:
-                "/lulus-murni/product-detail/onclick-checkbox.svg",
-            },
-            {
-              name: "Pembahasan",
-              price: 50.0,
-              toolTipsImage: "/lulus-murni/product-detail/toolTip.svg",
-              isShowTips: false,
-              checkbox: "/lulus-murni/product-detail/checkbox.svg",
-              onClickCheckbox:
-                "/lulus-murni/product-detail/onclick-checkbox.svg",
-            },
-            {
-              name: "Koreksi Otomatis",
-              price: 50.0,
-              toolTipsImage: "/lulus-murni/product-detail/toolTip.svg",
-              isShowTips: false,
-              checkbox: "/lulus-murni/product-detail/checkbox.svg",
-              onClickCheckbox:
-                "/lulus-murni/product-detail/onclick-checkbox.svg",
-            },
-            {
-              name: "PDF Soal + Jawaban",
-              price: 50.0,
-              toolTipsImage: "/lulus-murni/product-detail/toolTip.svg",
-              isShowTips: false,
-              checkbox: "/lulus-murni/product-detail/checkbox.svg",
-              onClickCheckbox:
-                "/lulus-murni/product-detail/onclick-checkbox.svg",
-            },
-          ],
-          price: 59.0,
-          search: "TOEFL",
-          showModal: false,
+          number: 1,
+          isOpen: true,
+          name: "Paket Tryout",
+          title: "(Unlimited 1 tahun)",
         },
         {
-          image: "/lulus-murni/product-list/sekdin.png",
-          name: "Paket Simulasi Premium All-in TOEFL ITP",
-          pack: [
-            {
-              number: 1,
-              isOpen: true,
-              name: "Paket Tryout",
-              title: "(Unlimited 1 tahun)",
-            },
-            {
-              number: 2,
-              isOpen: true,
-              name: "Paket Tryout",
-              title: "(Unlimited 1 tahun)",
-            },
-            {
-              number: 5,
-              isOpen: true,
-              name: "Paket Tryout",
-              title: "(Unlimited 1 tahun)",
-            },
-          ],
-          types: [
-            {
-              name: "Retry",
-              price: 50.0,
-              toolTipsImage: "/lulus-murni/product-detail/toolTip.png",
-              isShowTips: false,
-              checkbox: "/lulus-murni/product-detail/checkbox.svg",
-              onClickCheckbox:
-                "/lulus-murni/product-detail/onclick-checkbox.svg",
-            },
-            {
-              name: "Pembahasan",
-              price: 50.0,
-              toolTipsImage: "/lulus-murni/product-detail/toolTip.png",
-              isShowTips: false,
-              checkbox: "/lulus-murni/product-detail/checkbox.svg",
-              onClickCheckbox:
-                "/lulus-murni/product-detail/onclick-checkbox.svg",
-            },
-            {
-              name: "Koreksi Otomatis",
-              price: 50.0,
-              toolTipsImage: "/lulus-murni/product-detail/toolTip.png",
-              isShowTips: false,
-              checkbox: "/lulus-murni/product-detail/checkbox.svg",
-              onClickCheckbox:
-                "/lulus-murni/product-detail/onclick-checkbox.svg",
-            },
-            {
-              name: "PDF Soal + Jawaban",
-              price: 50.0,
-              toolTipsImage: "/lulus-murni/product-detail/toolTip.png",
-              isShowTips: false,
-              checkbox: "/lulus-murni/product-detail/checkbox.svg",
-              onClickCheckbox:
-                "/lulus-murni/product-detail/onclick-checkbox.svg",
-            },
-          ],
-          price: 59.0,
-          search: "SEKDIN",
-          showModal: false,
+          number: 2,
+          isOpen: true,
+          name: "Paket Tryout",
+          title: "(Unlimited 1 tahun)",
+        },
+        {
+          number: 5,
+          isOpen: true,
+          name: "Paket Tryout",
+          title: "(Unlimited 1 tahun)",
+        },
+      ],
+      types: [
+        {
+          name: "Retry",
+          price: 50000,
+          toolTipsImage: "/lulus-murni/product-detail/toolTip.png",
+          isShowTips: false,
+          checkbox: "/lulus-murni/product-detail/checkbox.svg",
+          onClickCheckbox: "/lulus-murni/product-detail/onclick-checkbox.svg",
+        },
+        {
+          name: "Pembahasan",
+          price: 50000,
+          toolTipsImage: "/lulus-murni/product-detail/toolTip.png",
+          isShowTips: false,
+          checkbox: "/lulus-murni/product-detail/checkbox.svg",
+          onClickCheckbox: "/lulus-murni/product-detail/onclick-checkbox.svg",
+        },
+        {
+          name: "Koreksi Otomatis",
+          price: 50000,
+          toolTipsImage: "/lulus-murni/product-detail/toolTip.png",
+          isShowTips: false,
+          checkbox: "/lulus-murni/product-detail/checkbox.svg",
+          onClickCheckbox: "/lulus-murni/product-detail/onclick-checkbox.svg",
+        },
+        {
+          name: "PDF Soal + Jawaban",
+          price: 50000,
+          toolTipsImage: "/lulus-murni/product-detail/toolTip.png",
+          isShowTips: false,
+          checkbox: "/lulus-murni/product-detail/checkbox.svg",
+          onClickCheckbox: "/lulus-murni/product-detail/onclick-checkbox.svg",
         },
       ],
     };
   },
   computed: {
-    product() {
-      const search = this.$route.params.search;
-      return this.categories.find((item) => item.search === search);
-    },
     totalPrice() {
       return (
-        this.product.price * (this.selectedPack.number || 1) +
-        this.selectedType.reduce((total, item) => total + item.price, 0)
+        this.categories.price * (this.selectedPack.number || 1) +
+        this.selectedType.reduce((total, item) => total + item.price, 0) -
+        this.discount
       );
     },
   },
@@ -564,8 +526,24 @@ export default {
     },
     dataDetail(value) {
       this.selectedPack = value;
-
       //hanya mengambil data di object pack
+    },
+    applyPromo() {
+      const promo = this.codePromo.trim().toLocaleUpperCase();
+
+      if (promo === "LULUSMURNI") {
+        this.discount = 20000;
+        this.promoActive = "Potongan harga";
+        this.promoSuccess =
+          "Selamat! Kamu telah mendapatkan potongan harga sebesar";
+        this.promoError = "";
+        console.log(promo);
+      } else {
+        this.discount = 0;
+        this.promoActive = "";
+        this.promoSuccess = "";
+        this.promoError = "Maaf, kode promo tidak valid";
+      }
     },
     typeDetail(type) {
       type.checked = !type.checked;
@@ -579,7 +557,7 @@ export default {
       }
     },
     isShowTooltip(name) {
-      this.product.types = this.product.types.map((type) => ({
+      this.types = this.types.map((type) => ({
         ...type,
         isShowTips: type.name === name ? !type.isShowTips : false,
       }));
@@ -589,7 +567,7 @@ export default {
         pack: this.selectedPack,
         addons: this.selectedType,
       };
-        console.log(data);
+      console.log(data);
       this.$router.push({
         path: `/checkout-page/${value}`,
         query: {
@@ -597,6 +575,22 @@ export default {
         },
       });
     },
+    formatPrice(val) {
+      return new Intl.NumberFormat("id-ID").format(val);
+    },
+  },
+  mounted() {
+    const saved = localStorage.getItem("selectedProductList");
+    if (saved) {
+      const data = JSON.parse(saved);
+      this.categories.name = data.name;
+      this.categories.image = data.image;
+      this.categories.price = Number(String(data.price).replace(/,/g, ""));
+      this.categories.category = data.category;
+      console.log(this.categories.price);
+    } else {
+      console.error("Paket tidak ditemukan.");
+    }
   },
 };
 </script>

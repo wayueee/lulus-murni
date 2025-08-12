@@ -23,7 +23,7 @@
     <div v-if="categories">
       <div class="mb-[20px]">
         <img
-          class="w-full h-auto mb-[12px] mt-[20px]"
+          class="w-full h-full md:h-[500px] rounded-lg bg-cover mb-[12px] mt-[20px]"
           :src="`${categories.image}`"
           alt=""
         />

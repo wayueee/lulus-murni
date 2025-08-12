@@ -183,14 +183,16 @@ export default {
         image: category.ImageURL || "",
         price: category.Price || "",
         category: category.Category || "",
+        description: category.Description || "",
+        benefits: category.Benefits || [],
       };
-      console.log(saved);
+      // console.log(category.Description);
       localStorage.setItem("selectedProductList", JSON.stringify(saved));
       this.$router.push(`/product-detail/${category.Category}`);
     },
   },
   async mounted() {
-    await this.getProductList(); 
+    await this.getProductList();
 
     const name = localStorage.getItem("selectedName");
     if (name) {

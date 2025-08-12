@@ -42,10 +42,9 @@
                       src="/lulus-murni/category/ckeck-category.png"
                       alt="check"
                     />
-                    <div
-                      class="text-[12px] lg:text-[14px]"
-                      v-html="category.Description"
-                    ></div>
+                    <div class="text-[12px] lg:text-[14px]">
+                      {{ category.Description }}
+                    </div>
                   </div>
                   <img
                     class="my-3 w-full h-auto rounded-lg border-2 border-[#D7E6F0] md:hidden"
@@ -71,17 +70,17 @@
 
 <script>
 export default {
-    data() {
-        return {
-            isShowModal: false,
-        }
+  data() {
+    return {
+      isShowModal: false,
+    };
+  },
+  props: {
+    category: {
+      type: Object,
+      default: () => {},
     },
-    props:{
-        category:{
-            type: Object,
-            default:() => {},
-        }
-    }
+  },
 };
 </script>
 

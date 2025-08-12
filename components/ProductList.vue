@@ -145,8 +145,10 @@ export default {
         image: category.ImageURL || "",
         price: category.Price || "",
         category: category.Category || "",
+        description: category.Description || "",
+        benefits: category.Benefits || [],
       };
-      console.log(saved);
+      // console.log(saved.benefits);
       localStorage.setItem("selectedProductList", JSON.stringify(saved));
       this.$router.push(`/product-detail/${category.Category}`);
     },

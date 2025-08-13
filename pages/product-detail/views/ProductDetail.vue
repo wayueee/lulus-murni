@@ -11,7 +11,7 @@
       </nuxt-link>
       <nuxt-link
         class="flex text-[12px] mt-1"
-        :to="`/product-list/${categories.search}`"
+        :to="`/product-list/${categories.category}`"
         >Product List </nuxt-link
       ><span class="mx-1 mb-1">></span>
       <nuxt-link
@@ -62,7 +62,7 @@
                 }"
                 @click="selectedChange(pack)"
               >
-                <h4>{{ pack.Name }}</h4>
+                <h4 class="text-[11px] lg:text-[14px]">{{ pack.Name }}</h4>
                 <span>Rp{{ formatPrice(pack.Price) }}</span>
               </button>
             </div>
@@ -76,7 +76,7 @@
             >
               <div class="mr-[8px]">
                 <button
-                  class="flex gap-[4px] text-[12px] relative"
+                  class="flex gap-[4px] text-[12px] lg:text-[14px] relative"
                   @click="typeDetail(type)"
                 >
                   <img
@@ -86,7 +86,7 @@
                     }`"
                     :alt="type.AddOn"
                   />
-                  <span class="ml-[18px]">
+                  <span class="ml-[18px] text-[11px] lg:text-[14px]">
                     {{ type.AddOn }}
                   </span>
                 </button>
@@ -99,9 +99,9 @@
             </div>
           </div>
           <hr class="mb-[10px]" />
-          <div class="flex border-b text-[12px] lg:text-[14px]">
+          <div class="flex border-b">
             <button
-              class="pr-4 py-2"
+              class="pr-4 py-2 text-[12px] lg:text-[14px]"
               :class="
                 tab === 'informasi'
                   ? 'border-b-2 border-[#F78012] font-semibold'
@@ -112,7 +112,7 @@
               Informasi Detail Ujian
             </button>
             <button
-              class="px-4 py-2 lg:text-[14px]"
+              class="px-4 py-2 text-[12px] lg:text-[14px]"
               :class="
                 tab === 'benefit'
                   ? 'border-b-2 border-[#F78012] font-semibold'
@@ -122,19 +122,25 @@
             >
               Benefit Paket
             </button>
+            <button
+              class="px-4 py-2 text-[12px] lg:text-[14px]"
+              :class="
+                tab === 'deskripsi'
+                  ? 'border-b-2 border-[#F78012] font-semibold'
+                  : ''
+              "
+              @click="tab = 'deskripsi'"
+            >
+              Deskripsi
+            </button>
           </div>
 
           <div
             class="mt-2 text-[12px] overflow-y-auto lg:overflow-visible lg:h-auto lg:mb-[150px] h-[80px]"
           >
             <div v-if="tab === 'informasi'">
-              <p class="text-[12px]">{{ informasiDetail }}</p>
+              <p class="text-[12px] lg:text-[14px]">{{ informasiDetail }}</p>
               <br />
-              <ul class="list-disc ml-5">
-                <li class="mb-1" v-for="list in informasiList" :key="list">
-                  {{ list }}
-                </li>
-              </ul>
             </div>
 
             <div v-if="tab === 'benefit'">
@@ -145,13 +151,18 @@
                   class="flex"
                 >
                   <img
-                    class="w-[14px] h-[14px] lg:w-[16px] lg:h-[16px] mt-1 mr-2 rounded-lg border-1"
+                    class="w-[14px] h-[14px] lg:w-[16px] lg:h-[16px] mr-2 rounded-lg border-1"
                     src="/lulus-murni/category/ckeck-category.png"
                     alt="check"
                   />
                   <p class="mb-2">{{ item }}</p>
                 </div>
               </ul>
+            </div>
+
+            <div v-if="tab === 'deskripsi'">
+              <p class="text-[12px] lg:text-[14px]">{{ DetailTest }}</p>
+              <br />
             </div>
           </div>
 
@@ -194,7 +205,11 @@
 
                   <!-- Nama Paket -->
                   <div class="flex justify-between text-[12px] mb-1">
-                    <p class="text-[#2D2D2D] font-medium">Nama Paket</p>
+                    <p
+                      class="text-[#2D2D2D] text-[11px] lg:text-[14px] font-medium"
+                    >
+                      Nama Paket
+                    </p>
                     <p class="text-right font-medium text-[#2D2D2D]">
                       {{ categories.name }}
                     </p>
@@ -204,7 +219,9 @@
                   <div
                     class="flex justify-between items-center border-t border-gray-200 pt-2 text-[12px] font-medium text-gray-800 mb-3"
                   >
-                    <p class="text-black/60">Harga Paket</p>
+                    <p class="text-black/60 text-[11px] lg:text-[14px]">
+                      Harga Paket
+                    </p>
                     <p>Rp{{ formatPrice(categories.price || 0) }}</p>
                   </div>
                   <div
@@ -212,20 +229,22 @@
                     class="flex justify-between items-center border-t border-gray-200 pt-2 text-[12px] font-medium text-gray-800 mb-3"
                   >
                     <p class="text-black/60">{{ promoActive }}</p>
-                    <p>Rp{{ formatPrice(discount) }}</p>
+                    <p>Rp-{{ formatPrice(discount) }}</p>
                   </div>
 
                   <!-- Add-Ons -->
-                  <p class="text-[12px] font-semibold text-gray-800 mb-1">
+                  <p
+                    class="text-[12px] lg:text-[14px] font-semibold text-gray-800 mb-1"
+                  >
                     Add-Ons
                   </p>
                   <div
                     v-for="addOns in selectedType"
                     :key="addOns"
-                    class="flex justify-between text-[12px] text-gray-700 mb-[2px]"
+                    class="flex justify-between text-[12px] lg:text-[14px] text-gray-700 mb-[2px]"
                   >
                     <p>• {{ addOns.AddOn }}</p>
-                    <span class="font-medium"
+                    <span class="font-medium text-[11px] lg:text-[14px]"
                       >Rp{{ formatPrice(addOns.Price) }}</span
                     >
                   </div>
@@ -234,8 +253,10 @@
                   <div
                     class="border-t border-gray-200 mt-3 pt-3 flex justify-between font-semibold text-[13px]"
                   >
-                    <p class="text-[14px] font-semibold">Total</p>
-                    <p class="text-[14px] font-semibold">
+                    <p class="ltext-[12px] lg:text-[14px] font-semibold">
+                      Total
+                    </p>
+                    <p class="text-[12px] lg:text-[14px] font-semibold">
                       Rp{{ formatPrice(totalPrice) }}
                     </p>
                   </div>
@@ -299,7 +320,7 @@
               </div>
               <div v-if="promoActive" class="flex justify-between">
                 <p class="text-[14px]">{{ promoActive }}</p>
-                <p>Rp{{ formatPrice(discount) }}</p>
+                <p>Rp-{{ formatPrice(discount) }}</p>
               </div>
             </div>
             <h1 class="text-[14px] mt-2 font-semibold">Add ons</h1>
@@ -386,7 +407,7 @@ export default {
       tab: "informasi",
       voucherList: [],
       selectedType: [],
-      informasiList: [],
+      DetailTest: "",
       benefits: [],
       productList: [],
       addOns: [],
@@ -461,7 +482,7 @@ export default {
 
         if (data.success && data.data) {
           this.addOns = data.data.data;
-          console.log("addOns", this.addOns);
+          // console.log("addOns", this.addOns);
         } else {
           console.error("Gagal data addOns:", data.message);
         }
@@ -473,10 +494,16 @@ export default {
     },
     toggleTooltip(AddOn) {
       this.activeId = this.activeId === AddOn ? null : AddOn;
-      console.log(AddOn);
+      // console.log(AddOn);
     },
     toggleTab() {
-      this.tab = this.tab === "informasi" ? "benefit" : "informasi";
+      if (this.tab === "informasi") {
+        this.tab = "benefit";
+      } else if (this.tab === "benefit") {
+        this.tab = "deskripsi";
+      } else {
+        this.tab = "informasi";
+      }
     },
     selectedChange(pack) {
       Object.assign(this.categories, {
@@ -592,7 +619,8 @@ export default {
       this.categories.category = data.category;
       this.informasiDetail = data.description;
       this.benefits = data.benefits;
-      console.log(data.benefits);
+      this.DetailTest = data.DetailTest
+      // console.log(data.DetailTest);
     } else {
       console.error("Paket tidak ditemukan.");
     }

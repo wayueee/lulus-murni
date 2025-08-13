@@ -43,6 +43,7 @@
               <option value="POLRI">POLRI</option>
               <option value="TOEFL">TOEFL</option>
               <option value="PSIKOTES">PSIKOTES</option>
+              <option value="RETAIL">RETAIL</option>
             </select>
             <div class="flex gap-[12px] mb-[10px] h-[40px] md:h-[43px]">
               <input
@@ -110,7 +111,9 @@
                 <hr />
                 <div class="flex justify-between my-2">
                   <p class="text-sm">Harga</p>
-                  <p class="font-semibold">Rp{{ category.Price }}</p>
+                  <p class="font-semibold">
+                    Rp{{ formatPrice(category.Price) }}
+                  </p>
                 </div>
                 <div class="my-1">
                   <button
@@ -131,6 +134,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -140,17 +144,16 @@ export default {
       productList: [],
       filteredList: [],
       isShowModal: false,
+      loading: true,
     };
   },
   methods: {
     async getProductList() {
       try {
-        const response = await axios.get("/api/productList");
-        const data = response.data;
+        const { data } = await axios.get("/api/productList");
         if (data.success && data.data) {
           this.productList = data.data.data;
           this.filteredList = this.productList;
-          // console.log("data product" + this.productList);
         } else {
           console.error("Gagal data product:", data.message);
         }
@@ -160,14 +163,9 @@ export default {
         this.loading = false;
       }
     },
-    // ToProductDetail(value) {
-    //   this.$router.push(`/product-detail/${value.search}`);
-    // },
+
     searchProduct() {
       const keyword = this.searchQuery.toLowerCase();
-      if (keyword && this.selected !== "All") {
-        this.selected = "All";
-      }
       this.filteredList = this.productList.filter((item) => {
         const matchCategory =
           this.selected === "All" ||
@@ -177,6 +175,7 @@ export default {
         return matchCategory && matchKeyword;
       });
     },
+
     ToProductDetail(category) {
       const saved = {
         name: category.Name || "",
@@ -185,14 +184,54 @@ export default {
         category: category.Category || "",
         description: category.Description || "",
         benefits: category.Benefits || [],
+        DetailTest: category.DetailTest || "",
       };
-      // console.log(category.Description);
       localStorage.setItem("selectedProductList", JSON.stringify(saved));
       this.$router.push(`/product-detail/${category.Category}`);
     },
+
+    setCategory(category) {
+      this.selected = category;
+      this.searchProduct();
+      this.scrollToSelect();
+    },
+
+    handleHash(hash) {
+      const cleanHash = hash.replace("#", "").toUpperCase();
+      if (cleanHash) {
+        this.selected = cleanHash;
+        this.searchProduct();
+      }
+    },
+
+    scrollToSelect() {
+      this.$nextTick(() => {
+        const selectEl = this.$el.querySelector("select");
+        if (selectEl) {
+          const yOffset = -window.innerHeight / 2 + 80; // Turunin sedikit
+          const y =
+            selectEl.getBoundingClientRect().top + window.scrollY + yOffset;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      });
+    },
+
+    formatPrice(val) {
+      return new Intl.NumberFormat("id-ID").format(val);
+    },
   },
+
   async mounted() {
     await this.getProductList();
+
+    // Cek jika ada query category di URL
+    if (this.$route.query.category) {
+      this.selected = this.$route.query.category.toUpperCase();
+      this.searchProduct();
+      this.scrollToSelect();
+      console.log(this.$route.query.category);
+      
+    }
 
     const name = localStorage.getItem("selectedName");
     if (name) {
@@ -200,8 +239,26 @@ export default {
       this.selectedByName = data.name;
       this.selected = data.name;
       this.searchProduct();
-      console.log(data.name);
     }
+
+    if (this.$route.hash) {
+      this.handleHash(this.$route.hash);
+      this.scrollToSelect();
+    }
+  },
+
+  watch: {
+    "$route.query.category"(newCategory) {
+      if (newCategory) {
+        this.selected = newCategory.toUpperCase();
+        this.searchProduct();
+        this.scrollToSelect();
+      }
+    },
+    "$route.hash"(newHash) {
+      this.handleHash(newHash);
+      this.scrollToSelect();
+    },
   },
 };
 </script>

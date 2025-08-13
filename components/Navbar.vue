@@ -101,7 +101,7 @@
             >
               <div v-if="item.name === 'Partnership'" class="flex gap-2 pt-2">
                 <img :src="`/lulus-murni${option.image}`" :alt="option.name" />
-                <a :href="option.link">{{ option.nameLink }}</a>
+                <p >{{ option.nameLink }}</p> 
               </div>
               <div @click="option.isOpen = !option.isOpen">
                 <div class="flex gap-2 pt-2">
@@ -117,7 +117,7 @@
                       :src="`/lulus-murni${itemOption.imageMobile}`"
                       :alt="itemOption.name"
                     />
-                    <h1 class="mt-1 cursor-pointer">{{ itemOption.name }}</h1>
+                    <a :href="itemOption.link" class="mt-1 cursor-pointer">{{ itemOption.name }}</a>
                   </div>
                 </div>
               </div>
@@ -190,8 +190,8 @@
                               :src="`/lulus-murni${itemOption.imageDesktop}`"
                               :alt="itemOption.name"
                             />
-                            <p class="py-2">{{ itemOption.name }}</p>
-                            <p class="text-[12px] font-normal">
+                            <a :href="itemOption.link" class="py-2">{{ itemOption.name }}</a>
+                            <p  class="text-[12px] font-normal">
                               {{ itemOption.description }}
                             </p>
                           </div>
@@ -249,6 +249,7 @@ export default {
               option: [
                 {
                   name: "Kedinasan",
+                  link:"#SEKOLAH KEDINASAN",
                   description:
                     "Lorem ipsum dolor sit amet consectetur. Eu et suspendisse in pulvinar amet nisi purus in justo. ",
                   imageDesktop: "/lulus-murni/navbar/frame-tryout.png",
@@ -256,6 +257,7 @@ export default {
                 },
                 {
                   name: "Polri",
+                  link:"#POLRI",
                   description:
                     "Lorem ipsum dolor sit amet consectetur. Eu et suspendisse in pulvinar amet nisi purus in justo. ",
                   imageDesktop: "/lulus-murni/navbar/frame-tryout.png",
@@ -263,6 +265,7 @@ export default {
                 },
                 {
                   name: "CPNS",
+                  link:"#CPNS",
                   description:
                     "Lorem ipsum dolor sit amet consectetur. Eu et suspendisse in pulvinar amet nisi purus in justo. ",
                   imageDesktop: "/lulus-murni/navbar/frame-tryout.png",
@@ -270,6 +273,7 @@ export default {
                 },
                 {
                   name: "BUMN",
+                  link:"#BUMN",
                   description:
                     "Lorem ipsum dolor sit amet consectetur. Eu et suspendisse in pulvinar amet nisi purus in justo. ",
                   imageDesktop: "/lulus-murni/navbar/frame-tryout.png",

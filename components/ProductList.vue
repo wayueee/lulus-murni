@@ -78,7 +78,9 @@
                 <hr />
                 <div class="flex justify-between my-3">
                   <p class="text-sm">Harga</p>
-                  <p class="font-semibold">Rp{{category.Price }}</p>
+                  <p class="font-semibold">
+                    Rp{{ formatPrice(category.Price) }}
+                  </p>
                 </div>
                 <div class="my-1">
                   <button
@@ -139,7 +141,7 @@ export default {
         this.loading = false;
       }
     },
-     ToProductDetail(category) {
+    ToProductDetail(category) {
       const saved = {
         name: category.Name || "",
         image: category.ImageURL || "",
@@ -147,32 +149,37 @@ export default {
         category: category.Category || "",
         description: category.Description || "",
         benefits: category.Benefits || [],
+        DetailTest: category.DetailTest || "",
       };
-      // console.log(saved.benefits);
+      // console.log(saved.description);
       localStorage.setItem("selectedProductList", JSON.stringify(saved));
       this.$router.push(`/product-detail/${category.Category}`);
     },
-    //     handleHash(hashtag){
-      
-    // }
+    formatPrice(val) {
+      return new Intl.NumberFormat("id-ID").format(val);
+    },
   },
   async mounted() {
     await this.getProductList();
-    // this.handleHash(window.location.hash)
+    if (this.$route.hash) {
+      this.selected = this.$route.hash.replace("#", "").toUpperCase();
+    }
   },
-  //   watch:{
-  //   "$route.hash" : "handleHash"
-  // },
+  watch: {
+    "$route.hash"(newHash) {
+      this.selected = newHash.replace("#", "").toUpperCase();
+    },
+  },
   computed: {
     filteredList() {
-  if (this.selected === "" || this.selected === "All") {
-    return this.productList;
-  } else {
-    return this.productList.filter(
-      (item) => item.Category === this.selected
-    );
-  }
-}
+      if (this.selected === "" || this.selected === "All") {
+        return this.productList;
+      } else {
+        return this.productList.filter(
+          (item) => item.Category === this.selected
+        );
+      }
+    },
   },
 };
 </script>

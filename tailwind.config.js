@@ -1,7 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
 const plugin = require("tailwindcss/plugin");
 export default {
-   content: [
+  content: [
     "./components/**/*.{js,vue,ts}",
     "./layouts/**/*.vue",
     "./pages/**/*.vue",
@@ -10,7 +11,11 @@ export default {
     "./error.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["Poppins", ...defaultTheme.fontFamily.sans],
+      },
+    },
   },
   plugins: [
     plugin(function ({ addComponents }) {
@@ -41,5 +46,4 @@ export default {
       });
     }),
   ],
-}
-
+};

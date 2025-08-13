@@ -10,22 +10,20 @@
 
     <div
       v-if="activeId === type.AddOn"
-      class="absolute -left-3 bottom-6 w-[100px]"
+      class="absolute -left-3 bottom-6"
+      :class="type.Id === '2' ? '-left-28 bottom-7' : ''"
     >
+      <h1
+        class="bg-black/70 border rounded-lg py-2 px-2 w-[200px] text-white text-[11px] md:text-[12px]"
+      >
+        {{ type.Description }}
+      </h1>
       <img
+        class="w-[100px]"
+        :class="type.Id === '2' ? 'absolute right-0' : ''"
         src="public/lulus-murni/product-detail/toolTip.svg"
         :alt="type.AddOn"
       />
-    </div>
-
-    <div
-      v-if="activeId === type.AddOn"
-      class="absolute -left-20 -top-[44px] md:-top-[58px] lg:-top-[64px] bg-black/70 border rounded-lg py-2 px-2 w-[200px] md:w-[220px] lg:w-[250px]"
-      :class="type.Id === '3' ? ' md:-left-40':'' ||type.Id === '2' ? '-left-44 md:-left-20':''"
-    >
-      <h1 class="text-white text-[11px] md:text-[12px] lg:text-[14px]">
-        {{ type.Description }}
-      </h1>
     </div>
   </div>
 </template>

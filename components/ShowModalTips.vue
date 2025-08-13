@@ -11,7 +11,7 @@
     <div
       v-if="activeId === type.AddOn"
       class="absolute -left-3 bottom-6"
-      :class="type.Id === '2' ? '-left-28 bottom-7' : ''"
+      :class="type.Id === '2' ? '-left-[112px] bottom-7' : ''"
     >
       <h1
         class="bg-black/70 border rounded-lg py-2 px-2 w-[200px] text-white text-[11px] md:text-[12px]"

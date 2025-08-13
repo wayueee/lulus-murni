@@ -224,15 +224,6 @@ export default {
   async mounted() {
     await this.getProductList();
 
-    // Cek jika ada query category di URL
-    if (this.$route.query.category) {
-      this.selected = this.$route.query.category.toUpperCase();
-      this.searchProduct();
-      this.scrollToSelect();
-      console.log(this.$route.query.category);
-      
-    }
-
     const name = localStorage.getItem("selectedName");
     if (name) {
       const data = JSON.parse(name);
@@ -248,13 +239,6 @@ export default {
   },
 
   watch: {
-    "$route.query.category"(newCategory) {
-      if (newCategory) {
-        this.selected = newCategory.toUpperCase();
-        this.searchProduct();
-        this.scrollToSelect();
-      }
-    },
     "$route.hash"(newHash) {
       this.handleHash(newHash);
       this.scrollToSelect();

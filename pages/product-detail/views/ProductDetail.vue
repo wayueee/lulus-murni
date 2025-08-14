@@ -35,7 +35,7 @@
             {{ categories.name }}
           </h2>
           <div class="flex gap-[8px] text-[14px]">
-            <p class="text-[#0683C2] font-semibold">
+            <p class="text-[#0683C2] text-[14px] lg:text-[16px] font-semibold">
               Rp{{ formatPrice(categories.price || 0) }}
             </p>
             <div class="relative">
@@ -44,11 +44,16 @@
                 src="/lulus-murni/product-detail/vector.svg"
                 alt=""
               />
-              <span class="text-[#5F6C73] font-medium">Rp299.000</span>
+              <span
+                class="text-[#5F6C73] text-[12px] lg:text-[14px] font-medium"
+                >Rp299.000</span
+              >
             </div>
           </div>
           <hr class="mt-[8px]" />
-          <h1 class="my-[8px] text-[12px] font-medium">Pilih Paket</h1>
+          <h1 class="my-[8px] text-[12px] lg:text-[12px] font-medium">
+            Pilih Paket
+          </h1>
           <div v-if="product.length" class="flex flex-wrap gap-[12px]">
             <div
               class="flex flex-wrap"
@@ -58,16 +63,21 @@
               <button
                 class="after:border-[#F78012] hover:border-[#F78012] rounded-lg border p-[8px] text-[11px] hover:font-medium"
                 :class="{
-                  'font-medium border-[#F78012]': categories.name === pack.Name,
+                  'font-medium border-[#F78012] text-[11px] lg:text-[12px]':
+                    categories.name === pack.Name,
                 }"
                 @click="selectedChange(pack)"
               >
-                <h4 class="text-[11px] lg:text-[14px]">{{ pack.Name }}</h4>
-                <span>Rp{{ formatPrice(pack.Price) }}</span>
+                <h4 class="text-[11px] lg:text-[12px]">{{ pack.Name }}</h4>
+                <span class="text-[11px] lg:text-[12px]"
+                  >Rp{{ formatPrice(pack.Price) }}</span
+                >
               </button>
             </div>
           </div>
-          <h1 class="text-[12px] mt-[24px] font-medium mb-[8px]">Add-ons</h1>
+          <h1 class="text-[12px] lg:text-[12px] mt-[24px] font-medium mb-[8px]">
+            Add-ons
+          </h1>
           <div class="grid grid-cols-2 md:flex gap-[8px] mb-[36px]">
             <div
               class="md:pr-[8px] flex relative"
@@ -76,7 +86,7 @@
             >
               <div class="mr-[8px]">
                 <button
-                  class="flex gap-[4px] text-[12px] lg:text-[14px] relative"
+                  class="flex gap-[4px] text-[12px] lg:text-[12px] relative"
                   @click="typeDetail(type)"
                 >
                   <img
@@ -86,7 +96,7 @@
                     }`"
                     :alt="type.AddOn"
                   />
-                  <span class="ml-[18px] text-[11px] lg:text-[14px]">
+                  <span class="ml-[18px] text-[11px] lg:text-[12px]">
                     {{ type.AddOn }}
                   </span>
                 </button>
@@ -101,10 +111,10 @@
           <hr class="mb-[10px]" />
           <div class="flex border-b">
             <button
-              class="pr-4 py-2 text-[12px] lg:text-[14px]"
+              class="pr-4 py-2 text-[12px] lg:text-[12px]"
               :class="
                 tab === 'informasi'
-                  ? 'border-b-2 border-[#F78012] font-semibold'
+                  ? 'border-b-2 border-[#F78012] lg:text-[14px] font-semibold'
                   : ''
               "
               @click="tab = 'informasi'"
@@ -112,10 +122,10 @@
               Informasi Detail Ujian
             </button>
             <button
-              class="px-4 py-2 text-[12px] lg:text-[14px]"
+              class="px-4 py-2 text-[12px] lg:text-[12px]"
               :class="
                 tab === 'benefit'
-                  ? 'border-b-2 border-[#F78012] font-semibold'
+                  ? 'border-b-2 border-[#F78012] lg:text-[14px] font-semibold'
                   : ''
               "
               @click="tab = 'benefit'"
@@ -123,10 +133,10 @@
               Benefit Paket
             </button>
             <button
-              class="px-4 py-2 text-[12px] lg:text-[14px]"
+              class="px-4 py-2 text-[12px] lg:text-[12px]"
               :class="
                 tab === 'deskripsi'
-                  ? 'border-b-2 border-[#F78012] font-semibold'
+                  ? 'border-b-2 border-[#F78012] lg:text-[14px] font-semibold'
                   : ''
               "
               @click="tab = 'deskripsi'"
@@ -139,7 +149,7 @@
             class="mt-2 text-[12px] overflow-y-auto lg:overflow-visible lg:h-auto lg:mb-[150px] h-[80px]"
           >
             <div v-if="tab === 'informasi'">
-              <p class="text-[12px] lg:text-[14px]">{{ informasiDetail }}</p>
+              <p class="text-[12px] lg:text-[12px]">{{ informasiDetail }}</p>
               <br />
             </div>
 
@@ -148,7 +158,7 @@
                 <div
                   v-for="(item, index) in benefits"
                   :key="index"
-                  class="flex"
+                  class="flex text-[12px] lg:text-[12px]"
                 >
                   <img
                     class="w-[14px] h-[14px] lg:w-[16px] lg:h-[16px] mr-2 rounded-lg border-1"
@@ -161,18 +171,16 @@
             </div>
 
             <div v-if="tab === 'deskripsi'">
-              <p class="text-[12px] lg:text-[14px]">{{ DetailTest }}</p>
+              <p class="text-[12px] lg:text-[12px]">{{ DetailTest }}</p>
               <br />
             </div>
           </div>
 
           <!-- Desktop-View -->
           <div class="lg:hidden">
-            <div
-              class="flex justify-between font-semibold pt-2 text-[14px] md:text-[16px]"
-            >
-              <h1 class="text-[14px] md:text-[16px]">TOTAL</h1>
-              <h1 class="text-[14px] md:text-[16px]">
+            <div class="flex justify-between pt-2">
+              <h1 class="text-[14px] md:text-[16px] font-semibold">TOTAL</h1>
+              <h1 class="text-[14px] md:text-[16px] font-semibold">
                 Rp{{ formatPrice(totalPrice) }}
               </h1>
             </div>
@@ -206,11 +214,13 @@
                   <!-- Nama Paket -->
                   <div class="flex justify-between text-[12px] mb-1">
                     <p
-                      class="text-[#2D2D2D] text-[11px] lg:text-[14px] font-medium"
+                      class="text-[#2D2D2D] text-[11px] lg:text-[12px] font-medium"
                     >
                       Nama Paket
                     </p>
-                    <p class="text-right font-medium text-[#2D2D2D]">
+                    <p
+                      class="text-right font-medium text-[11px] text-[#2D2D2D]"
+                    >
                       {{ categories.name }}
                     </p>
                   </div>
@@ -219,44 +229,52 @@
                   <div
                     class="flex justify-between items-center border-t border-gray-200 pt-2 text-[12px] font-medium text-gray-800 mb-3"
                   >
-                    <p class="text-black/60 text-[11px] lg:text-[14px]">
+                    <p class="text-black/60 text-[11px] lg:text-[12px]">
                       Harga Paket
                     </p>
-                    <p>Rp{{ formatPrice(categories.price || 0) }}</p>
+                    <p class="text-[11px] font-medium">
+                      Rp{{ formatPrice(categories.price || 0) }}
+                    </p>
                   </div>
                   <div
                     v-if="promoActive"
                     class="flex justify-between items-center border-t border-gray-200 pt-2 text-[12px] font-medium text-gray-800 mb-3"
                   >
-                    <p class="text-black/60">{{ promoActive }}</p>
-                    <p>Rp-{{ formatPrice(discount) }}</p>
+                    <p class="text-black/60 text-[11px] lg:text-[12px]">
+                      {{ promoActive }}
+                    </p>
+                    <p class="text-[11px] lg:text-[12px]">
+                      Rp-{{ formatPrice(discount) }}
+                    </p>
                   </div>
 
                   <!-- Add-Ons -->
                   <p
-                    class="text-[12px] lg:text-[14px] font-semibold text-gray-800 mb-1"
+                    class="text-[11px] lg:text-[14px] font-semibold text-gray-800 mb-1"
                   >
                     Add-Ons
                   </p>
                   <div
                     v-for="addOns in selectedType"
                     :key="addOns"
-                    class="flex justify-between text-[12px] lg:text-[14px] text-gray-700 mb-[2px]"
+                    class="flex justify-between text-[12px] lg:text-[12px] text-gray-700 mb-[2px]"
                   >
-                    <p>• {{ addOns.AddOn }}</p>
-                    <span class="font-medium text-[11px] lg:text-[14px]"
+                    <p class="text-[11px] lg:text-[12px]">
+                      • {{ addOns.AddOn }}
+                    </p>
+                    <span class="font-medium text-[11px] lg:text-[12px]"
                       >Rp{{ formatPrice(addOns.Price) }}</span
                     >
                   </div>
 
                   <!-- Total -->
                   <div
-                    class="border-t border-gray-200 mt-3 pt-3 flex justify-between font-semibold text-[13px]"
+                    class="border-t border-gray-200 mt-3 pt-3 flex justify-between lg:text-[14px] font-semibold text-[13px]"
                   >
-                    <p class="ltext-[12px] lg:text-[14px] font-semibold">
+                    <p class="ltext-[11px] lg:text-[14px] font-semibold">
                       Total
                     </p>
-                    <p class="text-[12px] lg:text-[14px] font-semibold">
+                    <p class="text-[11px] lg:text-[14px] font-semibold">
                       Rp{{ formatPrice(totalPrice) }}
                     </p>
                   </div>
@@ -269,34 +287,35 @@
             <div class="mb-4">
               <div class="flex gap-[16px]">
                 <input
-                  class="border-2 pl-3 rounded-lg w-full py-2 text-[12px] lg:text-[14px]"
+                  class="border-2 pl-3 rounded-lg w-full py-2 text-[12px] lg:text-[12px]"
                   type="text"
                   placeholder="XYZ234"
                   v-model="codePromo"
                 />
                 <button
                   @click="applyPromo"
-                  class="border text-[12px] lg:text-[14px] border-[#249CD9] rounded-lg text-[#249CD9] px-5 font-semibold"
+                  class="border text-[12px] border-[#249CD9] rounded-lg text-[#249CD9] px-5 lg:text-[14px] font-semibold"
                 >
                   Apply
                 </button>
               </div>
               <p
-                class="mt-1 text-green-500 text-[12px] lg:text-[14px]"
+                class="mt-1 text-green-500 font-medium text-[12px] lg:text-[14px]"
                 v-if="promoSuccess"
               >
                 {{ promoSuccess }}
               </p>
               <p
-                class="mt-1 text-red-500 text-[12px] lg:text-[14px]"
+                class="mt-1 text-[#FF6A6A] font-medium text-[12px] lg:text-[14px]"
                 v-if="promoError"
               >
-                {{ promoError }}
+                <span class="px-1.5 bg-[#FF6A6A] text-white rounded-full mr-2">!</span
+                >{{ promoError }}
               </p>
             </div>
             <button
               @click="toCheckoutPage(categories)"
-              class="w-full bg-[#249CD9] text-white font-semibold py-2 rounded-lg mb-5"
+              class="w-full bg-[#249CD9] text-white lg:text-[14px] font-semibold py-2 rounded-lg mb-5"
             >
               Pesan Sekarang
             </button>
@@ -313,14 +332,16 @@
             </div>
             <div>
               <div class="flex justify-between">
-                <h1 class="text-[14px]">Harga Paket</h1>
+                <h1 class="text-[12px]">Harga Paket</h1>
                 <div>
-                  <span>Rp{{ formatPrice(categories.price || 0) }}</span>
+                  <span class="text-[12px]"
+                    >Rp{{ formatPrice(categories.price || 0) }}</span
+                  >
                 </div>
               </div>
               <div v-if="promoActive" class="flex justify-between">
-                <p class="text-[14px]">{{ promoActive }}</p>
-                <p>Rp-{{ formatPrice(discount) }}</p>
+                <p class="text-[12px] text-[#FF6A6A]">{{ promoActive }}</p>
+                <p class="text-[12px] text-[#FF6A6A]">Rp-{{ formatPrice(discount) }}</p>
               </div>
             </div>
             <h1 class="text-[14px] mt-2 font-semibold">Add ons</h1>
@@ -346,34 +367,35 @@
             <div class="mb-4">
               <div class="flex gap-[16px]">
                 <input
-                  class="border-2 pl-3 rounded-lg w-full py-2 text-[12px] lg:text-[14px]"
+                  class="border-2 pl-3 rounded-lg w-full py-2 text-[12px] lg:text-[12px]"
                   type="text"
                   placeholder="XYZ234"
                   v-model="codePromo"
                 />
                 <button
                   @click="applyPromo"
-                  class="border text-[12px] lg:text-[14px] border-[#249CD9] rounded-lg text-[#249CD9] px-5 font-semibold"
+                  class="border text-[12px] border-[#249CD9] rounded-lg text-[#249CD9] px-5 lg:text-[14px] font-semibold"
                 >
                   Apply
                 </button>
               </div>
               <p
-                class="mt-1 text-green-500 text-[12px] lg:text-[14px]"
+                class="mt-1 text-green-500 font-medium text-[12px] lg:text-[14px]"
                 v-if="promoSuccess"
               >
                 {{ promoSuccess }}
               </p>
               <p
-                class="mt-1 text-red-500 text-[12px] lg:text-[14px]"
+                class="mt-1 text-[#FF6A6A] font-medium text-[12px] lg:text-[14px]"
                 v-if="promoError"
               >
-                {{ promoError }}
+                <span class="px-1.5 !text-white bg-[#FF6A6A] rounded-full mr-2">!</span
+                >{{ promoError }}
               </p>
             </div>
             <button
               @click="toCheckoutPage(categories)"
-              class="w-full bg-[#249CD9] text-white font-semibold py-2 rounded-lg mb-5"
+              class="w-full bg-[#249CD9] text-white lg:text-[14px] font-semibold py-2 rounded-lg mb-5"
             >
               Pesan Sekarang
             </button>
@@ -592,15 +614,15 @@ export default {
     toCheckoutPage(categories) {
       const saved = {
         name: categories.name || "",
-        image: categories.image|| "",
+        image: categories.image || "",
         price: this.totalPrice || "",
         category: categories.category || "",
         addOns: this.selectedType || [],
-      //   benefits: category.Benefits || [],
-      //   DetailTest: category.DetailTest || "",
+        //   benefits: category.Benefits || [],
+        //   DetailTest: category.DetailTest || "",
       };
       console.log(saved.addOns);
-      
+
       localStorage.setItem("selectedCheckoutPage", JSON.stringify(saved));
       this.$router.push(`/checkout-page/${categories.category}`);
     },

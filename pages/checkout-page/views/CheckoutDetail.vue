@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="flex mb-[16px]">
+    <div class="flex mb-[16px] md:mb-[30px]">
       <nuxt-link class="flex" to="/">
         <img
           class="w-[18px] h-auto"
@@ -26,12 +26,14 @@
         >Checkout
       </nuxt-link>
     </div>
-    <div class="md:grid grid-cols-2 shadow-md p-[10px] rounded-lg mb-[22px]">
+    <div
+      class="md:grid grid-cols-2 shadow-lg border-t-2 md:py-[24px] rounded-lg mb-[22px] lg:mb-[99px] md:mx-[70px]"
+    >
       <div
-        class="flex-col border-b-2 md:border-b-0 md:border-r-2 md:p-[12px] flex gap-[10px]"
+        class="flex-col max-md:mb-[20px] border-b max-md:m-[12px] md:border-b-0 md:border-r-2 md:px-[24px] flex gap-[10px]"
       >
         <div>
-          <h1 class="font-bold text-[14px] lg:text-[16px] mb-[8px]">
+          <h1 class="font-bold text-[14px] lg:text-[16px] mb-[12px]">
             Detail Pesanan
           </h1>
         </div>
@@ -47,56 +49,58 @@
           </div>
           <div class="mb-[20px] md:mb-0">
             <h1
-              class="mr-10 text-center text-[12px] lg:text-[14px] text-[#249CD9] bg-[#DCF3FF] font-medium border rounded-full py-1 mb-[4px]"
+              class="mr-20 text-center text-[12px] md:text-[11px] text-[#249CD9] bg-[#DCF3FF] font-medium border rounded-full py-1 md:mb-[15px] mb-[11px]"
             >
               ORD123457891011
             </h1>
             <h1
-              class="text-[12px] font-medium mb-[4px] md:text-[14px] lg:text-[16px]"
+              class="text-[12px] font-medium mb-[4px] md:mb-[8px] md:text-[14px]"
             >
               {{ categories.name }}
             </h1>
-            <div class="mb-[4px]">
+            <div class="mb-[4px] md:mb-[12px]">
               <h1 class="font-semibold text-[14px] lg:text-[16px]">
-                Rp{{
-                  formatPrice(categories.price ||0)
-                }}
+                Rp{{ formatPrice(categories.price || 0) }}
                 /
                 <span class="font-normal text-[10px] lg:text-[14px]"
-                  >1 Paket {{ categories.name }}  </span
-                >
+                  >1 Paket {{ categories.name }}
+                </span>
               </h1>
             </div>
             <div class="" v-if="types.length">
-              <h1 class="text-[#F78012] text-[11px] lg:text-[14px]">
+              <h1 class="text-[#F78012] text-[11px] lg:text-[12px]">
                 Add-Ons:
               </h1>
               <ul class="list-disc ml-5">
                 <li
-                  class="mb-1 text-[11px] lg:text-[14px]"
+                  class="mb-1 text-[11px] lg:text-[12px]"
                   v-for="addon in types"
                   :key="addon.AddOn"
                 >
                   <div class="flex justify-between">
-                    <h1>{{ addon.AddOn }}</h1>
-                    <h1>Rp{{ formatPrice(addon.Price)}}</h1>
+                    <h1 class="text-[11px] lg:text-[12px]">
+                      {{ addon.AddOn }}
+                    </h1>
+                    <h1 class="text-[11px] lg:text-[12px]">
+                      Rp{{ formatPrice(addon.Price) }}
+                    </h1>
                   </div>
                 </li>
               </ul>
             </div>
-            <h1 class="text-[#F78012] text-[11px]" v-else>
+            <h1 class="text-[#F78012] text-[11px] lg:text-[12px]" v-else>
               Add-Ons: <span class="font-semibold text-black">-</span>
             </h1>
           </div>
         </div>
       </div>
-      <div class="mt-[20px] md:mx-[16px] lg:mx-[22px]">
+      <div class="max-md:mt-[20px] md:mx-[16px] lg:mx-[22px] max-md:m-[12px]">
         <div class="flex flex-col justify-between">
-          <h1 class="text-[14px] mb-[8px] lg:text-[16px] font-bold">
+          <h1 class="text-[14px] mb-[12px] lg:text-[16px] font-bold">
             Detail Pemesan
           </h1>
-          <div>
-            <h1 class="text-[12px] lg:text-[16px]">Nama Lengkap</h1>
+          <div class="mb-[12px] md:mb-[20px]">
+            <h1 class="text-[12px] lg:text-[14px] mb-[8px]">Nama Lengkap</h1>
             <input
               class="border w-full text-[14px] rounded-lg py-1.5 pl-2 my-2"
               type="text"
@@ -105,8 +109,8 @@
               placeholder="Masukkan Nama Lengkap"
             />
           </div>
-          <div>
-            <h1 class="text-[12px] lg:text-[16px]">Email</h1>
+          <div class="mb-[12px] md:mb-[20px]">
+            <h1 class="text-[12px] lg:text-[14px] mb-[8px]">Email</h1>
             <input
               class="border w-full text-[14px] rounded-lg py-1.5 pl-2 my-2"
               type="email"
@@ -115,8 +119,8 @@
               placeholder="Masukkan Email Kamu"
             />
           </div>
-          <div>
-            <h1 class="text-[12px] lg:text-[16px]">No. Handphone</h1>
+          <div class="mb-[12px] md:mb-[20px]">
+            <h1 class="text-[12px] lg:text-[14px] mb-[8px]">No. Handphone</h1>
             <input
               class="border w-full text-[14px] rounded-lg py-1.5 pl-2 my-2"
               type="number"
@@ -127,7 +131,7 @@
           </div>
           <div>
             <button
-              class="text-white font-semibold text-[14px] lg:text-[16px] w-full bg-[#249CD9] py-2 text-center my-[8px] rounded-lg"
+              class="text-white font-semibold text-[14px] lg:text-[14px] w-full bg-[#249CD9] py-2 text-center mb-[12px] rounded-lg"
             >
               Lanjutkan Pembayaran
             </button>
@@ -144,10 +148,10 @@ export default {
     return {
       selectedPack: null,
       selectedType: [],
-      form:{
-        username:"",
-        email:"",
-        phone:"",
+      form: {
+        username: "",
+        email: "",
+        phone: "",
       },
       categories: {
         name: "Paket Simulasi Premium All-in TOEFL ITP",
@@ -159,9 +163,7 @@ export default {
         // { number: 1, name: "Paket Tryout", title: "Unlimited 1 tahun" },
         // { number: 2, name: "Paket Tryout", title: "Unlimited 1 tahun" },
       ],
-      types: [
-       
-      ],
+      types: [],
     };
   },
   methods: {
@@ -188,8 +190,8 @@ export default {
       this.categories.price = data.price;
       this.categories.image = data.image;
       this.categories.category = data.category;
-      this.types = data.addOns
-      
+      this.types = data.addOns;
+
       console.log(data.addOns);
     } else {
       console.error("Paket tidak ditemukan.");

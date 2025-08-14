@@ -72,7 +72,7 @@
 
       <div
         v-if="filteredList.length"
-        class="gap-5 py-5 grid grid-cols-1 sm:grid-cols-2 sm:gap-3 lg:gap-[20px] md:grid-cols-3 lg:grid-cols-4 h-full"
+        class="gap-5 py-5 mb-[108px] grid grid-cols-1 sm:grid-cols-2 sm:gap-3 lg:gap-[20px] md:grid-cols-3 lg:grid-cols-4 h-full"
       >
         <div v-for="category in filteredList" :key="category">
           <div

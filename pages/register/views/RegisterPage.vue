@@ -62,6 +62,7 @@
                 type="text"
                 name="username"
                 v-model="form.username"
+                @keyup.enter=""
                 id=""
                 placeholder="Nama Lengkap"
               />
@@ -85,6 +86,7 @@
                 name="name"
                 id=""
                 v-model="form.email"
+                @keyup.enter=""
                 placeholder="Email"
               />
             </div>
@@ -106,6 +108,7 @@
                 type="number"
                 name="phone"
                 v-model="form.phone"
+                @keyup.enter=""
                 placeholder="No. Telp/Hp cth:62822908716"
               />
             </div>
@@ -124,6 +127,7 @@
                 type="password"
                 name="password"
                 v-model="form.password"
+                @keyup.enter=""
                 id=""
                 placeholder="Password"
               />
@@ -150,6 +154,7 @@
                 name="password"
                 id=""
                 v-model="form.passwordConfirm"
+                @keyup.enter=""
                 placeholder="Konfirmasi Password"
               />
               <button>
@@ -162,6 +167,7 @@
             </div>
             <div class="my-[20px]">
               <button
+                @click="toLogin"
                 class="w-full py-[12px] rounded-lg border text-center font-semibold text-[14px] bg-[#249CD9] text-white hover:opacity-60"
               >
                 Daftar
@@ -199,6 +205,12 @@
               </button>
             </div>
           </div>
+        </div>
+        <div
+          v-if="account"
+          class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-4 py-2 shadow-lg rounded-full border-blue-700 z-50"
+        >
+          akun berhasil di buat silakan login
         </div>
       </div>
     </div>
@@ -329,6 +341,7 @@
             </div>
             <div class="my-[20px]">
               <button
+                @click="toLogin"
                 class="w-full py-[12px] rounded-lg border text-center font-semibold text-[12px] lg:text-[14px] bg-[#249CD9] text-white hover:opacity-60"
               >
                 Daftar
@@ -368,6 +381,12 @@
           </div>
         </div>
       </div>
+      <div
+        v-if="account"
+        class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-4 py-2 shadow-lg rounded-full border-blue-700 z-50"
+      >
+        akun berhasil di buat silakan login
+      </div>
     </div>
   </div>
 </template>
@@ -383,11 +402,21 @@ export default {
         password: "",
         passwordConfirm: "",
       },
+      account: false,
     };
   },
   methods: {
     toLoginPage() {
       this.$router.push(`/login`);
+    },
+    toLogin() {
+      const data = this.form;
+      localStorage.setItem("dataRegister", JSON.stringify(data));
+      this.account = true;
+      console.log(data);
+      setTimeout(() => {
+        this.$router.push(`/login`);
+      }, 2000);
     },
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container scroll-mt-[80px]" id="category">
     <h1
       class="lg:text-[22px] text-[14px] md:text-[16px] mt-5 mb-2 font-semibold"
     >
@@ -19,7 +19,7 @@
           :alt="card.Name"
         />
 
-        <div class="relative w-full h-full pt-[8px] ">
+        <div class="relative w-full h-full pt-[8px]">
           <h1 class="font-bold text-[12px] lg:text-14">{{ card.Name }}</h1>
           <div class="lg:flex mb-3 justify-between">
             <p class="text-[10px] font-light lg:text-[11px]">
@@ -82,14 +82,12 @@ export default {
     };
   },
   mounted() {
-    
     this.getCategories();
   },
   methods: {
     checkTryout(Name) {
       const savedName = {
         name: Name || "",
-        
       };
       console.log(savedName);
       localStorage.setItem("selectedName", JSON.stringify(savedName));

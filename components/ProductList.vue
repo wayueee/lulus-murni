@@ -11,6 +11,8 @@
         >
           <option hidden value="">Pilih kategori</option>
           <option value="All">All</option>
+          <option value="Top Pick">Top Pick</option>
+          <option value="Promo">Promo</option>
           <option value="SEKOLAH KEDINASAN">SEKOLAH KEDINASAN</option>
           <option value="CPNS">CPNS</option>
           <option value="PPPK">PPPK</option>
@@ -176,7 +178,7 @@ export default {
         return this.productList;
       } else {
         return this.productList.filter(
-          (item) => item.Category === this.selected
+          (item) => item.Category === this.selected || item.Tag === this.selected
         );
       }
     },

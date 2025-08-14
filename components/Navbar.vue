@@ -2,10 +2,11 @@
   <div class="sticky top-0 z-20 bg-white">
     <div class="container md:flex pt-3 lg:pt-0 justify-between items-center">
       <div class="flex items-center">
-        <nuxt-link to="/"><img
-          class="w-[165px] mb-5 h-[28px] lg:mt-4 xl:mt-5"
-          src="/lulus-murni/navbar/navbar-desktop.png"
-          alt="navbar"
+        <nuxt-link to="/"
+          ><img
+            class="w-[165px] mb-5 h-[28px] lg:mt-4 xl:mt-5"
+            src="/lulus-murni/navbar/navbar-desktop.png"
+            alt="navbar"
         /></nuxt-link>
       </div>
 
@@ -101,7 +102,7 @@
             >
               <div v-if="item.name === 'Partnership'" class="flex gap-2 pt-2">
                 <img :src="`/lulus-murni${option.image}`" :alt="option.name" />
-                <p >{{ option.nameLink }}</p> 
+                <p>{{ option.nameLink }}</p>
               </div>
               <div @click="option.isOpen = !option.isOpen">
                 <div class="flex gap-2 pt-2">
@@ -117,7 +118,9 @@
                       :src="`/lulus-murni${itemOption.imageMobile}`"
                       :alt="itemOption.name"
                     />
-                    <a :href="itemOption.link" class="mt-1 cursor-pointer">{{ itemOption.name }}</a>
+                    <a :href="itemOption.link" class="mt-1 cursor-pointer">{{
+                      itemOption.name
+                    }}</a>
                   </div>
                 </div>
               </div>
@@ -164,7 +167,7 @@
                           activeIndexChild =
                             activeIndexChild === index ? null : index
                         "
-                        class="cursor-pointer lg:text-[12px] xl:text-[14px] font-semibold hover:text-[#249CD9] "
+                        class="cursor-pointer lg:text-[12px] xl:text-[14px] font-semibold hover:text-[#249CD9]"
                         :class="{
                           'text-[#249CD9]': activeIndexChild === index,
                         }"
@@ -190,8 +193,10 @@
                               :src="`/lulus-murni${itemOption.imageDesktop}`"
                               :alt="itemOption.name"
                             />
-                            <a :href="itemOption.link" class="py-2">{{ itemOption.name }}</a>
-                            <p  class="text-[12px] font-normal">
+                            <a :href="itemOption.link" class="py-2">{{
+                              itemOption.name
+                            }}</a>
+                            <p class="text-[12px] font-normal">
                               {{ itemOption.description }}
                             </p>
                           </div>
@@ -222,8 +227,19 @@
             >{{ item.nameLink }}</a
           >
         </div>
-        <button @click="toLoginPage"
-          class="text-[14px] w-full py-2 lg:py-0 mt-[8px] lg:mt-0 lg:w-[90px] mb-2 xl:mb-3 lg:h-[30px] xl:w-[100px] xl:h-[40px]  bg-[#249CD9] hover:bg-blue-500 duration-300 font-semibold text-white rounded"
+        <div v-if="isLogin" class="hidden lg:block bg-[#FFD5AD] rounded-full mb-2 pt-2 pb-1 px-2"> 
+          <button @click="logout">
+            <img src="public/lulus-murni/navbar/profile.svg" alt="">
+          </button>
+        </div>
+        <div v-if="isLogin" class="lg:hidden text-[14px] font-medium"> 
+          <button @click="logout">
+            Profile
+          </button>
+        </div>
+        <button v-else
+          @click="toLoginPage"
+          class="text-[14px] w-full py-2 lg:py-0 mt-[8px] lg:mt-0 lg:w-[90px] mb-2 xl:mb-3 lg:h-[30px] xl:w-[100px] xl:h-[40px] bg-[#249CD9] hover:bg-blue-500 duration-300 font-semibold text-white rounded"
         >
           Login
         </button>
@@ -238,6 +254,7 @@ export default {
     return {
       activeIndexParent: null,
       activeIndexChild: 0,
+      isLogin: false,
       isOpen: false,
       faqs: [
         {
@@ -249,7 +266,7 @@ export default {
               option: [
                 {
                   name: "Kedinasan",
-                  link:"#SEKOLAH KEDINASAN",
+                  link: "SEKOLAH KEDINASAN",
                   description:
                     "Lorem ipsum dolor sit amet consectetur. Eu et suspendisse in pulvinar amet nisi purus in justo. ",
                   imageDesktop: "/lulus-murni/navbar/frame-tryout.png",
@@ -257,7 +274,7 @@ export default {
                 },
                 {
                   name: "Polri",
-                  link:"#POLRI",
+                  link: "POLRI",
                   description:
                     "Lorem ipsum dolor sit amet consectetur. Eu et suspendisse in pulvinar amet nisi purus in justo. ",
                   imageDesktop: "/lulus-murni/navbar/frame-tryout.png",
@@ -265,7 +282,7 @@ export default {
                 },
                 {
                   name: "CPNS",
-                  link:"#CPNS",
+                  link: "CPNS",
                   description:
                     "Lorem ipsum dolor sit amet consectetur. Eu et suspendisse in pulvinar amet nisi purus in justo. ",
                   imageDesktop: "/lulus-murni/navbar/frame-tryout.png",
@@ -273,7 +290,7 @@ export default {
                 },
                 {
                   name: "BUMN",
-                  link:"#BUMN",
+                  link: "BUMN",
                   description:
                     "Lorem ipsum dolor sit amet consectetur. Eu et suspendisse in pulvinar amet nisi purus in justo. ",
                   imageDesktop: "/lulus-murni/navbar/frame-tryout.png",
@@ -313,11 +330,24 @@ export default {
       ],
     };
   },
-  methods:{
-    toLoginPage(){
-      this.$router.push(`/login`)
+  methods: {
+    toLoginPage() {
+      this.$router.push(`/login`);
+    },
+    logout(){
+      this.isLogin = false
+      localStorage.removeItem("isLogin");
     }
-  }
+  },
+  mounted(){
+    const login = localStorage.getItem("isLogin");
+    if(login){
+      const isLogin = JSON.parse(login);
+      this.isLogin = isLogin
+      console.log(isLogin);
+      
+    }
+  },
 };
 </script>
 

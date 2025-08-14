@@ -9,7 +9,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  
+
   app: {
     baseURL: "/lulus-murni/",
     buildAssetsDir: "assets",

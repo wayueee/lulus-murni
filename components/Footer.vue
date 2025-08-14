@@ -16,15 +16,18 @@
           </p>
           <div class="hidden lg:block">
             <div class="gap-5 flex h-[auto]">
-              <button>
+              <a href="">
                 <img src="/lulus-murni/footer/facebook-icon.svg" alt="icon" />
-              </button>
-              <button>
+              </a>
+              <a
+                href="https://www.instagram.com/lulusmurnidotcom/#"
+                target="_blank"
+              >
                 <img src="/lulus-murni/footer/instagram-icon.svg" alt="icon" />
-              </button>
-              <button>
+              </a>
+              <a href="">
                 <img src="/lulus-murni/footer/twitter-icon.svg" alt="icon" />
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -34,14 +37,25 @@
               LulusMurni.com
             </h1>
             <div class="text-[12px] lg:text-[14px] flex flex-col">
-              <a class="hover:text-black/70" href="">Program Kami</a>
-              <a class="my-[12px] hover:text-black/70" href="">Liga TryOut</a>
+              <a class="hover:text-black/70 mb-[8px]" href="#category"
+                >Program Kami</a
+              >
+              <!-- <a class="my-[12px] hover:text-black/70" href="">Liga TryOut</a>
               <a class="hover:text-black/70" href=""
                 >Kalender Rekrutmen/Beasiswa</a
-              >
-              <a class="my-[12px] hover:text-black/70" href="">Promo</a>
-              <a class="hover:text-black/70" href="">Mitra</a>
-              <a class="mt-[12px] hover:text-black/70" href="">Partnership</a>
+              > -->
+              <div class="text-[12px] lg:text-[14px] flex flex-col">
+                <router-link
+                  v-for="tag in tags"
+                  :key="tag"
+                  class="hover:text-black/70 mb-[8px]"
+                  @click="toPromo(tag)"
+                  to="#"
+                  >{{ tag }}</router-link
+                >
+              </div>
+              <!-- <a class="hover:text-black/70" href="">Mitra</a>
+              <a class="mt-[12px] hover:text-black/70" href="">Partnership</a> -->
             </div>
           </div>
           <div class="xl:ml-[53px] xl:mr-[62px]">
@@ -50,31 +64,13 @@
             </h1>
             <div class="text-[12px] lg:text-[14px] flex flex-col">
               <router-link
-                class="hover:text-black/70"
-                :to="{ path: '/product-list/CPNS' }"
+                v-for="category in categories"
+                :key="category"
+                class="hover:text-black/70 mb-[8px]"
+                @click="checkTryout(category)"
+                to="#"
               >
-                CPNS
-              </router-link>
-
-              <router-link
-                class="hover:text-black/70 my-[12px]"
-                :to="{ path: '/product-list/BUMN' }"
-              >
-                BUMN
-              </router-link>
-
-              <router-link
-                class="hover:text-black/70"
-                :to="{ path: '/product-list/PPPK' }"
-              >
-                PPPK
-              </router-link>
-
-              <router-link
-                class="hover:text-black/70 mt-[12px]"
-                :to="{ path: '/product-list/TOEFL' }"
-              >
-                TOEFL
+                {{ category }}
               </router-link>
             </div>
           </div>
@@ -83,21 +79,57 @@
           <h1 class="font-semibold text-[14px] lg:text-[20px]">Hubungi Kami</h1>
           <div class="flex flex-col text-[12px] mt-[8px] lg:text-[14px]">
             <p>Kontak</p>
-            <a class="hover:text-black/70 py-[4px]" href=""
-              >Halo@lulusMurni.com</a
+            <a
+              class="hover:text-black/70 py-[4px]"
+              target="_blank"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=Halo@lulusmurni.com"
+              >halo@lulusmurni.com</a
             >
-            <a class="hover:text-black/70" href="">0822-1322-2085</a>
+            <a
+              class="hover:text-black/70"
+              target="_blank"
+              href="https://wa.me/6282213222085"
+              >0822-1322-2085</a
+            >
           </div>
           <div class="flex flex-col text-[12px] lg:text-[14px] mt-[12px]">
             <p>Jam Operasional</p>
             <p class="py-[4px]">Setiap Hari</p>
             <p>09.00 - 21.00</p>
           </div>
+          <div class="lg:hidden my-[16px]">
+            <div class="gap-5 flex h-[auto]">
+              <a href="">
+                <img
+                  class="w-5"
+                  src="/lulus-murni/footer/facebook-icon.svg"
+                  alt="icon"
+                />
+              </a>
+              <a
+                href="https://www.instagram.com/lulusmurnidotcom/#"
+                target="_blank"
+              >
+                <img
+                  class="w-5"
+                  src="/lulus-murni/footer/instagram-icon.svg"
+                  alt="icon"
+                />
+              </a>
+              <a href="">
+                <img
+                  class="w-5"
+                  src="/lulus-murni/footer/twitter-icon.svg"
+                  alt="icon"
+                />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="hidden lg:block">
+      <div class="">
         <div
-          class="flex justify-center pt-5 border-t-2 border-white/80 lg:mt-10"
+          class="flex justify-center pt-3 lg:pt-5 border-t-2 border-white/80 text-[12px] lg:mt-10"
         >
           <p>Copyright PT Cendikia Lentera Bangsa 2025 All rights reserved.</p>
         </div>
@@ -107,7 +139,26 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      tags: ["Top Pick", "Promo"],
+      categories: ["CPNS", "BUMN", "PPPK", "TOEFL"],
+    };
+  },
+  methods: {
+    toPromo(Tag) {
+      const savedFilter = { tag: Tag || "", name: "" };
+      localStorage.setItem("selectedName", JSON.stringify(savedFilter));
+      this.$router.push(`/product-list/${Tag}`);
+    },
+    checkTryout(Name) {
+      const savedFilter = { name: Name || "", tag: "" };
+      localStorage.setItem("selectedName", JSON.stringify(savedFilter));
+      this.$router.push(`/product-list/${Name}`);
+    },
+  },
+};
 </script>
 
 <style></style>

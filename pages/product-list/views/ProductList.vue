@@ -36,6 +36,8 @@
             >
               <option hidden value="">Pilih kategori</option>
               <option value="All">All</option>
+              <option value="Top Pick">Top Pick</option>
+              <option value="Promo">Promo</option>
               <option value="SEKOLAH KEDINASAN">SEKOLAH KEDINASAN</option>
               <option value="CPNS">CPNS</option>
               <option value="PPPK">PPPK</option>
@@ -170,7 +172,8 @@ export default {
         const matchCategory =
           this.selected === "All" ||
           this.selected === "" ||
-          item.Category === this.selected;
+          item.Category === this.selected ||
+          item.Tag === this.selected
         const matchKeyword = item.Name.toLowerCase().includes(keyword);
         return matchCategory && matchKeyword;
       });
@@ -227,8 +230,8 @@ export default {
     const name = localStorage.getItem("selectedName");
     if (name) {
       const data = JSON.parse(name);
-      this.selectedByName = data.name;
-      this.selected = data.name;
+      this.selectedByName = data.name || data.tag
+      this.selected = data.name || data.tag
       this.searchProduct();
     }
 

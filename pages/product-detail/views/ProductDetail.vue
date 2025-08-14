@@ -23,7 +23,7 @@
     <div v-if="categories">
       <div class="mb-[20px]">
         <img
-          class="w-full h-full md:h-[500px] rounded-lg bg-cover mb-[12px] mt-[20px]"
+          class="w-full h-full md:h-[500px] lg:h-[550px] rounded-lg bg-cover mb-[12px] mt-[20px]"
           :src="`${categories.image}`"
           alt=""
         />
@@ -295,7 +295,7 @@
               </p>
             </div>
             <button
-              @click="toCheckoutPage(categories.category)"
+              @click="toCheckoutPage(categories)"
               class="w-full bg-[#249CD9] text-white font-semibold py-2 rounded-lg mb-5"
             >
               Pesan Sekarang
@@ -372,7 +372,7 @@
               </p>
             </div>
             <button
-              @click="toCheckoutPage(categories.category)"
+              @click="toCheckoutPage(categories)"
               class="w-full bg-[#249CD9] text-white font-semibold py-2 rounded-lg mb-5"
             >
               Pesan Sekarang
@@ -523,13 +523,13 @@ export default {
       const usedVouchers = JSON.parse(
         localStorage.getItem("usedVouchers") || "[]"
       );
-      if (usedVouchers.includes(promo)) {
-        this.discount = 0;
-        this.promoActive = "";
-        this.promoSuccess = "";
-        this.promoError = "Kode promo sudah pernah digunakan";
-        return;
-      }
+      // if (usedVouchers.includes(promo)) {
+      //   this.discount = 0;
+      //   this.promoActive = "";
+      //   this.promoSuccess = "";
+      //   this.promoError = "Kode promo sudah pernah digunakan";
+      //   return;
+      // }
 
       // Cari voucher dari data list
       const voucher = this.voucherList.find(
@@ -589,17 +589,20 @@ export default {
       }
     },
 
-    toCheckoutPage(value) {
-      const data = {
-        addons: this.selectedType,
+    toCheckoutPage(categories) {
+      const saved = {
+        name: categories.name || "",
+        image: categories.image|| "",
+        price: this.totalPrice || "",
+        category: categories.category || "",
+        addOns: this.selectedType || [],
+      //   benefits: category.Benefits || [],
+      //   DetailTest: category.DetailTest || "",
       };
-      // console.log(data);
-      this.$router.push({
-        path: `/checkout-page/${value}`,
-        query: {
-          data: encodeURIComponent(JSON.stringify(data)),
-        },
-      });
+      console.log(saved.addOns);
+      
+      localStorage.setItem("selectedCheckoutPage", JSON.stringify(saved));
+      this.$router.push(`/checkout-page/${categories.category}`);
     },
     formatPrice(val) {
       return new Intl.NumberFormat("id-ID").format(val);
@@ -619,7 +622,7 @@ export default {
       this.categories.category = data.category;
       this.informasiDetail = data.description;
       this.benefits = data.benefits;
-      this.DetailTest = data.DetailTest
+      this.DetailTest = data.DetailTest;
       // console.log(data.DetailTest);
     } else {
       console.error("Paket tidak ditemukan.");

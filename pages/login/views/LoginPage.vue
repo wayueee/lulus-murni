@@ -58,6 +58,7 @@
               <input
                 class="w-full py-2 outline-none text-[14px]"
                 v-model="form.username"
+                @keyup.enter="handleLogin"
                 type="text"
                 name="username"
                 id=""
@@ -77,6 +78,7 @@
                 class="w-full py-2 outline-none text-[14px]"
                 type="password"
                 v-model="form.password"
+                @keyup.enter="handleLogin"
                 name="Password"
                 id=""
                 placeholder="Password"
@@ -90,13 +92,15 @@
               </button>
             </div>
             <div class="flex justify-end">
-              <button class="text-[#249CD9] font-semibold text-[14px] hover:opacity-60">
+              <button
+                class="text-[#249CD9] font-semibold text-[14px] hover:opacity-60"
+              >
                 Lupa Password?
               </button>
             </div>
             <div class="my-[20px]">
               <button
-                @click.prevent="postLogin"
+                @click="handleLogin"
                 class="w-full py-[12px] rounded-lg border text-center font-semibold text-[14px] bg-[#249CD9] text-white hover:opacity-60"
               >
                 Login
@@ -122,7 +126,9 @@
                 class="flex w-full gap-[8px] py-[12px] border-2 justify-center rounded-lg"
               >
                 <img src="/lulus-murni/login/icon-google.svg" alt="icon" />
-                <h1 class="text-[12px] lg:text-[14px] hover:opacity-60">Login dengan Google</h1>
+                <h1 class="text-[12px] lg:text-[14px] hover:opacity-60">
+                  Login dengan Google
+                </h1>
               </button>
             </div>
             <div class="flex justify-center hover:opacity-60">
@@ -132,6 +138,18 @@
               </button>
             </div>
           </div>
+        </div>
+        <div
+          v-if="errorLogin"
+          class="fixed top-5 text-[14px] left-1/2 transform -translate-x-1/2 font-medium bg-red-500 text-white px-4 py-2 shadow-lg rounded-full border-blue-700 z-50"
+        >
+          {{ errorLogin }}
+        </div>
+        <div
+          v-if="successLogin"
+          class="fixed top-5 text-[14px] left-1/2 transform -translate-x-1/2 font-medium bg-blue-500 text-white px-4 py-2 shadow-lg rounded-full border-blue-700 z-50"
+        >
+          {{ successLogin }}
         </div>
       </div>
     </div>
@@ -169,6 +187,7 @@
               <input
                 class="w-full py-2 text-[12px] lg:text-[14px] outline-none"
                 v-model="form.username"
+                @keyup.enter="handleLogin"
                 type="text"
                 name="username"
                 id=""
@@ -187,6 +206,7 @@
               <input
                 class="w-full py-2 text-[12px] lg:text-[14px] outline-none"
                 v-model="form.password"
+                @keyup.enter="handleLogin"
                 type="password"
                 name="Password"
                 id=""
@@ -209,6 +229,7 @@
             </div>
             <div class="my-[20px]">
               <button
+                @click="handleLogin"
                 class="text-[12px] lg:text-[14px] w-full py-2 rounded-lg border text-center font-semibold bg-[#249CD9] text-white hover:opacity-60"
               >
                 Login
@@ -253,6 +274,18 @@
             </div>
           </div>
         </div>
+        <div
+          v-if="errorLogin"
+          class="fixed top-5 text-[12px] left-1/2 transform -translate-x-1/2 font-medium bg-red-500 text-white px-4 py-2 shadow-lg rounded-full border-blue-700 z-50"
+        >
+          {{ errorLogin }}
+        </div>
+        <div
+          v-if="successLogin"
+          class="fixed top-5 text-[12px] left-1/2 transform -translate-x-1/2 font-medium bg-blue-500 text-white px-4 py-2 shadow-lg rounded-full border-blue-700 z-50"
+        >
+          {{ successLogin }}
+        </div>
       </div>
     </div>
   </div>
@@ -263,35 +296,65 @@ import axios from "axios";
 export default {
   data() {
     return {
+      successLogin: "",
+      errorLogin: "",
+      formUser: {
+        username: "",
+        password: "",
+      },
       form: {
         username: "",
         password: "",
       },
       loginData: null,
+      isLogin: true,
     };
   },
-  mounted() {
-    this.postLogin();
-  },
   methods: {
-    async postLogin() {
+    async handleLogin() {
       try {
+        if (
+          this.form.username === this.formUser.username ||
+          this.form.password === this.formUser.password
+        ) {
+          this.successLogin = "Login berhasil!";
+          setTimeout(() => {
+            window.location.href = "/";
+            const login = this.isLogin;
+            localStorage.setItem("isLogin", JSON.stringify(login));
+          }, 2000);
+
+          return;
+        } else {
+          this.errorLogin =
+            "Username atau password tidak sesuai dengan data registrasi.";
+          setTimeout(() => {
+            this.errorLogin = "";
+          }, 2000);
+        }
+
         const formData = new FormData();
-        formData.append("username", this.form.username);
-        formData.append("password", this.form.password);
+        formData.append("username", this.formUser.username);
+        formData.append("password", this.formUser.password);
 
         const response = await axios.post(
           "https://lulusmurni.com/api/login",
           formData
         );
         this.loginData = response.data;
-        console.log("Data login:", this.loginData);
+        console.log("Data login:", formData);
 
-        if (
-          this.loginData.status === "success" &&
-          this.loginData.data?.redirect
-        ) {
-          window.location.href = this.loginData.data.redirect;
+        // if (
+        //   this.loginData.status === "success" &&
+        //   this.loginData.data?.redirect
+        // ) {
+        //   window.location.href = this.loginData.data.redirect;
+        // }
+
+        if (this.loginData.status === "success") {
+          window.location.href = "/";
+          const login = this.isLogin;
+          localStorage.setItem("isLogin", JSON.stringify(login));
         }
       } catch (err) {
         console.error("Gagal login:", err);
@@ -300,6 +363,15 @@ export default {
     toRegisterPage() {
       this.$router.push(`/register`);
     },
+  },
+  mounted() {
+    const login = localStorage.getItem("dataRegister");
+    if (login) {
+      const data = JSON.parse(login);
+      this.formUser.username = data.username;
+      this.formUser.password = data.password;
+      console.log(data);
+    }
   },
 };
 </script>

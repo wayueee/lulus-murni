@@ -192,14 +192,14 @@ export default {
     filteredList() {
       if (!this.productList.length) return [];
 
-      if (this.selected === "" || this.selected.toUpperCase() === "ALL") {
+      if (this.selected === "" || this.selected === "All") {
         return this.productList;
       }
 
       return this.productList.filter(
         (item) =>
-          item.Category?.toUpperCase() === this.selected ||
-          item.Tag?.toUpperCase() === this.selected
+          item.Category === this.selected ||
+          item.Tag === this.selected
       );
     },
   },

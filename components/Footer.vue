@@ -33,12 +33,12 @@
         </div>
         <div class="mb-[32px] grid grid-cols-2 md:grid-cols-3 gap-5 xl:h-[230px]">
           <div class="lg:w-[196px]">
-            <h1 class="mb-[8px] text-[14px] font-semibold lg:text-[18px] xl:text-[20px]">
+            <h1 class="mb-[8px] text-[14px] font-semibold lg:text-[18px]">
               LulusMurni.com
             </h1>
             <div class="text-[12px] lg:text-[14px] flex flex-col">
-              <a class="hover:text-black/70 mb-[8px] text-[12px] lg:text-[14px]" href="#category"
-                >Program Kami</a
+              <nuxtLink class="hover:text-black/70 mb-[8px] text-[12px] lg:text-[14px]" to="/#category"
+                >Program Kami</nuxtLink
               >
               <!-- <a class="my-[12px] hover:text-black/70" href="">Liga TryOut</a>
               <a class="hover:text-black/70" href=""
@@ -59,7 +59,7 @@
             </div>
           </div>
           <div class="xl:ml-[10px] xl:mr-[62px]">
-            <h1 class="mb-[8px] text-[14px] font-semibold lg:text-[18px] xl:text-[20px]">
+            <h1 class="mb-[8px] text-[14px] font-semibold lg:text-[18px]">
               Tes Populer
             </h1>
             <div class="text-[12px] lg:text-[14px] flex flex-col">
@@ -76,7 +76,7 @@
           </div>
       
         <div class=" lg:mt-0 mb-[8px] r flex flex-col">
-          <h1 class="font-semibold text-[14px] lg:text-[19px] xl:text-[20px]">Hubungi Kami</h1>
+          <h1 class="font-semibold text-[14px] lg:text-[19px]">Hubungi Kami</h1>
           <div class="flex flex-col text-[12px] mt-[8px] lg:text-[14px]">
             <p>Kontak</p>
             <a

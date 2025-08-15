@@ -62,7 +62,7 @@
                 type="text"
                 name="username"
                 v-model="form.username"
-                @keyup.enter=""
+                @keyup.enter="toLogin"
                 id=""
                 placeholder="Nama Lengkap"
               />
@@ -86,7 +86,7 @@
                 name="name"
                 id=""
                 v-model="form.email"
-                @keyup.enter=""
+                @keyup.enter="toLogin"
                 placeholder="Email"
               />
             </div>
@@ -108,7 +108,7 @@
                 type="number"
                 name="phone"
                 v-model="form.phone"
-                @keyup.enter=""
+                @keyup.enter="toLogin"
                 placeholder="No. Telp/Hp cth:62822908716"
               />
             </div>
@@ -127,7 +127,7 @@
                 type="password"
                 name="password"
                 v-model="form.password"
-                @keyup.enter=""
+                @keyup.enter="toLogin"
                 id=""
                 placeholder="Password"
               />
@@ -154,7 +154,7 @@
                 name="password"
                 id=""
                 v-model="form.passwordConfirm"
-                @keyup.enter=""
+                @keyup.enter="toLogin"
                 placeholder="Konfirmasi Password"
               />
               <button>

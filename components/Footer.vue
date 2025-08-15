@@ -67,7 +67,7 @@
                 v-for="category in categories"
                 :key="category"
                 class="text-[12px] lg:text-[14px] hover:text-black/70 mb-[8px]"
-                @click="checkTryout(category)"
+                @click="toProductList(category)"
                 to="#"
               >
                 {{ category }}
@@ -153,7 +153,7 @@ export default {
       localStorage.setItem("selectedName", JSON.stringify(savedFilter));
       this.$router.push(`/product-list/${Tag}`);
     },
-    checkTryout(Name) {
+    toProductList(Name) {
       const savedFilter = { name: Name || "", tag: "" };
       localStorage.setItem("selectedName", JSON.stringify(savedFilter));
       this.$router.push(`/product-list/${Name}`);

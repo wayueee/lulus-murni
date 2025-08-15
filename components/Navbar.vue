@@ -9,7 +9,7 @@
             alt="navbar"
         /></nuxt-link>
       </div>
-
+      <!-- Button-Navbar-Mobile -->
       <button
         class="absolute lg:hidden right-2 sm:right-10 top-2 cursor-pointer"
         @click="isOpen = !isOpen"
@@ -48,7 +48,7 @@
           </div>
         </div>
       </button>
-
+      <!-- All-View -->
       <div
         class="lg:flex xl:gap-7 lg:items-center lg:px-0 px-5 md:px-14 lg:py-[12px] lg:pb-0 pb-10 lg:static bg-white absolute lg:w-auto w-full top-14 duration-700 ease-in z-20"
         :class="[isOpen ? 'right-0' : 'right-[100%]']"
@@ -65,7 +65,6 @@
                 ? 'mt-1'
                 : ''
             "
-            @click="item.isOpen = !item.isOpen"
           >
             <button
               @click="
@@ -74,7 +73,7 @@
               class="text-[14px] lg:text-[13px] xl:text-[14px] text-[#2D2D2D] hover:font-semibold pr-1 cursor-pointer"
               :class="
                 activeIndexParent === index
-                  ? ' lg:font-semibold font-medium'
+                  ? 'lg:font-semibold font-medium'
                   : 'font-medium lg:font-normal'
               "
             >
@@ -91,6 +90,7 @@
               <img src="/lulus-murni/navbar/chevron-up.svg" alt="vector" />
             </button>
           </div>
+          <!-- Mobile-View -->
           <div
             v-show="activeIndexParent === index"
             class="px-4 pb-4 text-[12px] lg:text-[14px] xl:text-[16px] text-[#47626F] lg:hidden"
@@ -111,15 +111,15 @@
                 <div class="px-4" v-if="option.isOpen">
                   <div
                     class="flex gap-2 pb-2"
-                    v-for="itemOption in option.option"
-                    :key="itemOption"
+                    v-for="program in option.programs"
+                    :key="program"
                   >
                     <img
-                      :src="`/lulus-murni${itemOption.imageMobile}`"
-                      :alt="itemOption.name"
+                      :src="`/lulus-murni${program.imageMobile}`"
+                      :alt="program.name"
                     />
-                    <a :href="itemOption.link" class="mt-1 cursor-pointer">{{
-                      itemOption.name
+                    <a :href="program.link" class="mt-1 cursor-pointer">{{
+                      program.name
                     }}</a>
                   </div>
                 </div>
@@ -128,12 +128,13 @@
           </div>
 
           <div class="shadow-md">
+            <!-- Desktop-View -->
             <div
               class="hidden lg:block top-14 rounded-lg absolute"
               v-show="activeIndexParent === index"
               :class="
                 item.name === 'Program Kami'
-                  ? 'left-0 bg-white h-[310px] w-full'
+                  ? 'left-0 bg-white h-[370px] w-full'
                   : ''
               "
             >
@@ -157,61 +158,87 @@
                     />
                     <a :href="option.link">{{ option.nameLink }}</a>
                   </div>
-                  <div class="relative" @click="option.isOpen = !option.isOpen">
+                  <div @click="option.isOpen = !option.isOpen">
                     <div
-                      class="flex gap-2 mb-[16px] relative"
+                      class="flex gap-2 mb-[16px]"
                       :class="item.name === 'Program Kami' ? 'pt-2' : ''"
                     >
-                      <button
-                        @click="
-                          activeIndexChild =
-                            activeIndexChild === index ? null : index
-                        "
-                        class="cursor-pointer lg:text-[12px] xl:text-[14px] font-semibold hover:text-[#249CD9]"
-                        :class="{
-                          'text-[#249CD9]': activeIndexChild === index,
-                        }"
-                      >
-                        {{ option.name }}
-                        <span
-                          :class="item.name === 'Partnership' ? 'hidden' : ''"
-                          v-if="activeIndexChild === index"
-                          >></span
+                      <div v-if="option.name === 'Sertifikasi'">
+                        <nuxt-link
+                          class="cursor-pointer lg:text-[12px] xl:text-[14px] font-semibold hover:text-[#249CD9]"
+                          target="_blank"
+                          to="https://lulusmurni.com/lp/sertifikasi-profesi/"
+                          >{{ option.name }}</nuxt-link
                         >
-                      </button>
-                      <div v-show="activeIndexChild === index" class="relative">
-                        <div
-                          class="flex border-l-2 absolute ml-[48px] pl-[32px]"
+                      </div>
+                      <div v-else>
+                        <button
+                          @click="
+                            activeIndexChild =
+                              activeIndexChild === index ? null : index
+                          "
+                          class="cursor-pointer lg:text-[12px] xl:text-[14px] font-semibold hover:text-[#249CD9]"
+                          :class="{
+                            'text-[#249CD9]': activeIndexChild === index,
+                          }"
                         >
-                          <div
-                            class="px-[12px] lg:w-[190px] xl:w-[244px]"
-                            :class="option.name === 'Tryout' ? 'mb-[68px]' : ''"
-                            v-for="itemOption in option.option"
-                            :key="itemOption"
+                          {{ option.name }}
+                          <span
+                            :class="item.name === 'Partnership' ? 'hidden' : ''"
+                            v-if="activeIndexChild === index"
+                            >></span
                           >
-                            <img
-                              :src="`/lulus-murni${itemOption.imageDesktop}`"
-                              :alt="itemOption.name"
-                            />
-                            <a :href="itemOption.link" class="py-2">{{
-                              itemOption.name
-                            }}</a>
-                            <p class="text-[12px] font-normal">
-                              {{ itemOption.description }}
-                            </p>
-                          </div>
+                        </button>
+                      </div>
+
+                      <div>
+                        <div v-show="activeIndexChild === index">
                           <div
-                            v-if="option.name === 'Tryout'"
-                            class="border-2 flex p-2 gap-5 absolute bottom-0 border-[#249CD9] rounded-lg"
+                            class="flex border-l-2 absolute top-2 ml-[48px] pl-[32px] items"
                           >
-                            <button class="text-[14px] text-[#249CD9]">
-                              Lihat Semua Program
-                            </button>
-                            <img
-                              class="w-[20px] h-[20px]"
-                              src="/lulus-murni/navbar/arrow.svg"
-                              alt="image"
-                            />
+                            <div
+                              class="px-[12px] lg:w-[190px] xl:w-[244px] z-50"
+                              :class="
+                                option.name === 'Tryout' ? 'mb-[68px]' : ''
+                              "
+                              v-for="program in option.programs"
+                              :key="program"
+                            >
+                              <router-link
+                                class="w-full"
+                                to="#"
+                                @click="checkTryout(program.name)"
+                              >
+                                <img
+                                  class="rounded-lg"
+                                  :src="`${program.imageDesktop}`"
+                                  :alt="program.name"
+                                />
+                                <h1 class="text-[14px] font-medium pt-2 pb-1">
+                                  {{ program.name }}
+                                </h1>
+                                <p class="text-[12px] text-[#5F6C73]">
+                                  {{ program.description }}
+                                </p>
+                              </router-link>
+                            </div>
+                            <div
+                              v-if="option.name === 'Tryout'"
+                              class="border-2 flex p-2 gap-5 absolute bottom-0 border-[#249CD9] rounded-lg"
+                            >
+                              <router-link
+                                to="#"
+                                @click="allCategory('All')"
+                                class="text-[14px] text-[#249CD9]"
+                              >
+                                Lihat Semua Program
+                              </router-link>
+                              <img
+                                class="w-[20px] h-[20px]"
+                                src="/lulus-murni/navbar/arrow.svg"
+                                alt="image"
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -221,23 +248,32 @@
               </div>
             </div>
           </div>
-          <a
-            :href="item.link"
-            class="text-[14px] lg:text-[13px] xl:text-[14px] text-[#2D2D2D] font-medium lg:font-normal hover:font-semibold"
-            >{{ item.nameLink }}</a
+          <nuxt-link
+            v-if="item.nameLink === 'Promo'"
+            @click="toProductList(item.nameLink)"
+            class="cursor-pointer text-[14px] lg:text-[13px] xl:text-[14px] text-[#2D2D2D] font-medium lg:font-normal hover:font-semibold"
+            >{{ item.nameLink }}</nuxt-link
+          >
+          <nuxt-link
+            v-else
+            :to="item.link"
+            class="curson-pointer text-[14px] lg:text-[13px] xl:text-[14px] text-[#2D2D2D] font-medium lg:font-normal hover:font-semibold"
+            >{{ item.nameLink }}</nuxt-link
           >
         </div>
-        <div v-if="isLogin" class="hidden lg:block bg-[#FFD5AD] rounded-full mb-2 pt-2 pb-1 px-2"> 
+        <div
+          v-if="isLogin"
+          class="hidden lg:block bg-[#FFD5AD] rounded-full mb-2 pt-2 pb-1 px-2"
+        >
           <button @click="logout">
-            <img src="public/lulus-murni/navbar/profile.svg" alt="">
+            <img src="public/lulus-murni/navbar/profile.svg" alt="" />
           </button>
         </div>
-        <div v-if="isLogin" class="lg:hidden text-[14px] font-medium"> 
-          <button @click="logout">
-            Profile
-          </button>
+        <div v-if="isLogin" class="lg:hidden text-[14px] font-medium">
+          <button @click="logout">Profile</button>
         </div>
-        <button v-else
+        <button
+          v-else
           @click="toLoginPage"
           class="text-[14px] w-full py-2 lg:py-0 mt-[8px] lg:mt-0 lg:w-[90px] mb-2 xl:mb-3 lg:h-[30px] xl:w-[100px] xl:h-[40px] bg-[#249CD9] hover:bg-blue-500 duration-300 font-semibold text-white rounded"
         >
@@ -249,6 +285,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -263,55 +300,53 @@ export default {
             {
               name: "Tryout",
               isOpen: true,
-              option: [
+              programs: [
                 {
-                  name: "Kedinasan",
-                  link: "SEKOLAH KEDINASAN",
-                  description:
-                    "Lorem ipsum dolor sit amet consectetur. Eu et suspendisse in pulvinar amet nisi purus in justo. ",
-                  imageDesktop: "/lulus-murni/navbar/frame-tryout.png",
-                  imageMobile: "/lulus-murni/navbar/kedinasan.svg",
-                },
-                {
-                  name: "Polri",
-                  link: "POLRI",
-                  description:
-                    "Lorem ipsum dolor sit amet consectetur. Eu et suspendisse in pulvinar amet nisi purus in justo. ",
-                  imageDesktop: "/lulus-murni/navbar/frame-tryout.png",
-                  imageMobile: "/lulus-murni/navbar/polri.svg",
+                  name: "BUMN",
+                  description: "",
+                  imageDesktop: "",
+                  imageMobile: "/lulus-murni/navbar/bumn.svg",
                 },
                 {
                   name: "CPNS",
-                  link: "CPNS",
-                  description:
-                    "Lorem ipsum dolor sit amet consectetur. Eu et suspendisse in pulvinar amet nisi purus in justo. ",
-                  imageDesktop: "/lulus-murni/navbar/frame-tryout.png",
+                  description: "",
+                  imageDesktop: "",
                   imageMobile: "/lulus-murni/navbar/cpns.svg",
                 },
                 {
-                  name: "BUMN",
-                  link: "BUMN",
-                  description:
-                    "Lorem ipsum dolor sit amet consectetur. Eu et suspendisse in pulvinar amet nisi purus in justo. ",
-                  imageDesktop: "/lulus-murni/navbar/frame-tryout.png",
-                  imageMobile: "/lulus-murni/navbar/bumn.svg",
+                  name: "POLRI",
+                  description: "",
+                  imageDesktop: "",
+                  imageMobile: "/lulus-murni/navbar/polri.svg",
+                },
+                {
+                  name: "SEKOLAH KEDINASAN",
+                  description: "",
+                  imageDesktop: "",
+                  imageMobile: "/lulus-murni/navbar/kedinasan.svg",
                 },
               ],
             },
             {
               name: "Tes Bahasa",
-              option: [],
+              programs: [
+                {
+                  name: "TOEFL",
+                  description: "",
+                  imageDesktop: "",
+                  imageMobile: "/lulus-murni/navbar/cpns.svg",
+                },
+              ],
             },
             {
               name: "Sertifikasi",
-              option: [],
             },
           ],
         },
-        { nameLink: "Liga Tryout", link: "#" },
-        { nameLink: "Kalender Rekrutment/Beasiswa", link: "#" },
-        { nameLink: "Promo", link: "#" },
-        { nameLink: "Mitra", link: "#" },
+        { nameLink: "Kategori", link: "/#category" },
+        { nameLink: "Testimonial", link: "/#testimonial" },
+        { nameLink: "Promo", link: "" },
+        { nameLink: "Mitra", link: "/" },
         {
           name: "Partnership",
           title: [
@@ -328,24 +363,100 @@ export default {
           ],
         },
       ],
+      categories: [],
     };
   },
   methods: {
+    async getCategories() {
+      try {
+        const response = await axios.get("/api/categories");
+        const data = response.data;
+        if (data.success && data.data) {
+          this.categories = data.data.data;
+          console.log(this.categories);
+
+          // tryout SECTION
+          const tryout = ["SEKOLAH KEDINASAN", "POLRI", "CPNS", "BUMN"];
+          const filtered = this.categories.filter((category) =>
+            tryout.includes(category.Name.toUpperCase())
+          );
+          const defaultMobileImages = this.faqs[0].title[0].programs.map(
+            (item) => item.imageMobile
+          );
+
+          this.faqs[0].title[0].programs = filtered.map((category, index) => {
+            const firstSentence = category.Description.split(".")[0] + ".";
+            return {
+              name: category.Name,
+              description: firstSentence,
+              imageDesktop: category.ImageURL
+                ? category.ImageURL
+                : defaultMobileImages[index],
+              imageMobile: defaultMobileImages[index],
+            };
+          });
+
+          //Tes Bahasa SECTION
+          const tesBahasa = ["TOEFL"];
+          const filteredTes = this.categories.filter((category) =>
+            tesBahasa.includes(category.Name.toUpperCase())
+          );
+          const defaultMobileImagesTes = this.faqs[0].title[0].programs.map(
+            (category) => category.imageMobile
+          );
+
+          this.faqs[0].title[1].programs = filteredTes.map(
+            (category, index) => {
+              const firstSentence = category.Description.split(".")[0] + ".";
+              return {
+                name: category.Name,
+                description: firstSentence,
+                imageDesktop: category.ImageURL
+                  ? category.ImageURL
+                  : defaultMobileImagesTes[index],
+                imageMobile: defaultMobileImagesTes[index],
+              };
+            }
+          );
+        } else {
+          console.error("Gagal:", data.message);
+        }
+      } catch (err) {
+        console.error("Gagal ambil data:", err);
+      } finally {
+        this.loading = false;
+      }
+    },
+    checkTryout(name) {
+      const saved = { name: name || "", tag: "" };
+      localStorage.setItem("selectedName", JSON.stringify(saved));
+      this.$router.push(`/product-list/${name}`);
+    },
+    allCategory(value) {
+      const saved = { tag: value || "", name: "" };
+      localStorage.setItem("selectedName", JSON.stringify(saved));
+      this.$router.push(`/product-list/${value}`);
+    },
     toLoginPage() {
       this.$router.push(`/login`);
     },
-    logout(){
-      this.isLogin = false
+    logout() {
+      this.isLogin = false;
       localStorage.removeItem("isLogin");
-    }
+    },
+    toProductList(link) {
+      const savedFilter = { tag: link || "", name: "" };
+      localStorage.setItem("selectedName", JSON.stringify(savedFilter));
+      this.$router.push(`/product-list/${link}`);
+    },
   },
-  mounted(){
+  mounted() {
+    this.getCategories();
     const login = localStorage.getItem("isLogin");
-    if(login){
+    if (login) {
       const isLogin = JSON.parse(login);
-      this.isLogin = isLogin
+      this.isLogin = isLogin;
       console.log(isLogin);
-      
     }
   },
 };

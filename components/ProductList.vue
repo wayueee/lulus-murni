@@ -163,24 +163,44 @@ export default {
   },
   async mounted() {
     await this.getProductList();
+
     if (this.$route.hash) {
-      this.selected = this.$route.hash.replace("#", "").toUpperCase();
+      const clean = this.$route.hash.replace("#", "").toUpperCase();
+
+      if (clean === "CATEGORY" || clean === "TESTIMONIAL") {
+        this.selected = ""; 
+      } else {
+        this.selected = clean;
+      }
+    } else {
+      this.selected = "";
     }
   },
+
   watch: {
     "$route.hash"(newHash) {
-      this.selected = newHash.replace("#", "").toUpperCase();
+      const clean = newHash.replace("#", "").toUpperCase();
+      if (clean === "CATEGORY" || clean === "TESTIMONIAL" || clean === "") {
+        this.selected = ""; 
+      } else {
+        this.selected = clean;
+      }
     },
   },
+
   computed: {
     filteredList() {
-      if (this.selected === "" || this.selected === "All") {
+      if (!this.productList.length) return [];
+
+      if (this.selected === "" || this.selected.toUpperCase() === "ALL") {
         return this.productList;
-      } else {
-        return this.productList.filter(
-          (item) => item.Category === this.selected || item.Tag === this.selected
-        );
       }
+
+      return this.productList.filter(
+        (item) =>
+          item.Category?.toUpperCase() === this.selected ||
+          item.Tag?.toUpperCase() === this.selected
+      );
     },
   },
 };

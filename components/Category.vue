@@ -46,7 +46,7 @@
         </div>
         <div class="">
           <button
-            @click="checkTryout(card.Name)"
+            @click="toProductList(card.Name)"
             class="w-full sm:w-full text-[14px] mt-1 xl:mb-2 rounded-lg h-[34px] lg:h-[30px] xl:h-[40px] font-semibold bg-[#249CD9] text-white"
           >
             Lihat Tryout
@@ -85,7 +85,7 @@ export default {
     this.getCategories();
   },
   methods: {
-    checkTryout(Name) {
+    toProductList(Name) {
       const savedName = {
         name: Name || "",
       };

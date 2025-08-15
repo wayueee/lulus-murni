@@ -168,17 +168,21 @@ export default {
 
     searchProduct() {
       const keyword = this.searchQuery.toLowerCase();
+
       this.filteredList = this.productList.filter((item) => {
-        const matchCategory =
-          this.selected === "All" ||
-          this.selected === "" ||
-          item.Category === this.selected ||
-          item.Tag === this.selected
+        let matchCategory = false;
+
+        if (this.selected === "All" || this.selected === "") {
+          matchCategory = true;
+        } else {
+          matchCategory =
+            item.Category === this.selected || item.Tag === this.selected;
+        }
+
         const matchKeyword = item.Name.toLowerCase().includes(keyword);
         return matchCategory && matchKeyword;
       });
     },
-
     ToProductDetail(category) {
       const saved = {
         name: category.Name || "",
@@ -230,8 +234,8 @@ export default {
     const name = localStorage.getItem("selectedName");
     if (name) {
       const data = JSON.parse(name);
-      this.selectedByName = data.name || data.tag
-      this.selected = data.name || data.tag
+      this.selectedByName = data.name || data.tag;
+      this.selected = data.name || data.tag;
       this.searchProduct();
     }
 

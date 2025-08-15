@@ -110,17 +110,21 @@
                 </div>
                 <div class="px-4" v-if="option.isOpen">
                   <div
-                    class="flex gap-2 pb-2"
+                    class=""
                     v-for="program in option.programs"
                     :key="program"
                   >
-                    <img
-                      :src="`/lulus-murni${program.imageMobile}`"
-                      :alt="program.name"
-                    />
-                    <a :href="program.link" class="mt-1 cursor-pointer">{{
-                      program.name
-                    }}</a>
+                    <router-link
+                      class="flex gap-2 pb-2 w-full"
+                      to="#"
+                      @click="checkTryout(program.name)"
+                    >
+                      <img
+                        :src="`/lulus-murni${program.imageMobile}`"
+                        :alt="program.name"
+                      />
+                      <p class="mt-1 cursor-pointer">{{ program.name }}</p>
+                    </router-link>
                   </div>
                 </div>
               </div>
@@ -373,7 +377,7 @@ export default {
         const data = response.data;
         if (data.success && data.data) {
           this.categories = data.data.data;
-          console.log(this.categories);
+          // console.log(this.categories);
 
           // tryout SECTION
           const tryout = ["SEKOLAH KEDINASAN", "POLRI", "CPNS", "BUMN"];
@@ -456,7 +460,7 @@ export default {
     if (login) {
       const isLogin = JSON.parse(login);
       this.isLogin = isLogin;
-      console.log(isLogin);
+      // console.log(isLogin);
     }
   },
 };

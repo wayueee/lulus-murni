@@ -61,13 +61,16 @@
           <div
             class="flex justify-between items-center cursor-pointer"
             :class="
-              item.name === 'Program Kami' || item.name === 'Partnership'
+              item.name === 'Program Kami'
                 ? 'mt-1'
                 : ''
             "
           >
             <button
-              @click="toggleParent(index)"
+              @click="
+                this.activeIndexParent =
+                  this.activeIndexParent === index ? null : index
+              "
               class="text-[14px] lg:text-[13px] xl:text-[14px] text-[#2D2D2D] hover:font-semibold pr-1 cursor-pointer"
               :class="
                 activeIndexParent === index
@@ -78,7 +81,10 @@
               {{ item.name }}
             </button>
             <button
-              @click="toggleParent(index)"
+              @click="
+                this.activeIndexParent =
+                  this.activeIndexParent === index ? null : index
+              "
               v-if="item.name === 'Program Kami' || item.name === 'Partnership'"
               class="pl-1 transform transition-transform duration-300"
               :class="activeIndexParent === index ? 'rotate-0' : 'rotate-180'"
@@ -93,25 +99,35 @@
           >
             <div
               class="font-semibold text-[14px]"
-              v-for="option in item.title"
-              :key="option"
+              v-for="(option, index) in item.title"
+              :key="index"
             >
               <div v-if="item.name === 'Partnership'" class="flex gap-2 pt-2">
                 <img :src="`/lulus-murni${option.image}`" :alt="option.name" />
                 <p>{{ option.nameLink }}</p>
               </div>
-              <div @click="option.isOpen = !option.isOpen">
-                <div class="flex gap-2 pt-2">
-                  <button class="cursor-pointer">{{ option.name }}</button>
+              <div class="mt-2" :class="item.name === 'Partnership' ? '-mt-4' : ''" @click="option.isOpen = !option.isOpen">
+                <div v-if="option.name === 'Sertifikasi'" class="pt-2">
+                  <nuxt-link
+                    class="cursor-pointer text-[14px] font-medium"
+                    target="_blank"
+                    to="https://lulusmurni.com/lp/sertifikasi-profesi/"
+                    >{{ option.name }}</nuxt-link
+                  >
                 </div>
-                <div class="px-4" v-if="option.isOpen">
+                  <button v-else
+                    @click="toggleChild(index)"
+                    class="cursor-pointer text-[14x] font-medium "
+                  >
+                    {{ option.name }}
+                  </button>
+                <div class="px-4" v-show="activeIndexChild === index">
                   <div
-                    class=""
                     v-for="program in option.programs"
                     :key="program"
                   >
                     <router-link
-                      class="flex gap-2 pb-2 w-full"
+                      class="flex gap-2 text-[14px] pt-2 w-full"
                       to="#"
                       @click="checkTryout(program.name)"
                     >
@@ -119,7 +135,7 @@
                         :src="`/lulus-murni${program.imageMobile}`"
                         :alt="program.name"
                       />
-                      <p class="mt-1 cursor-pointer">{{ program.name }}</p>
+                      <p class="mt-1 text-[14px] font-medium cursor-pointer">{{ program.name }}</p>
                     </router-link>
                   </div>
                 </div>
@@ -129,114 +145,125 @@
 
           <div class="shadow-md">
             <!-- Desktop-View -->
-            <div
-              class="hidden lg:block top-14 rounded-lg absolute"
-              v-show="activeIndexParent === index"
-              :class="
-                item.name === 'Program Kami'
-                  ? 'left-0 bg-white h-[370px] w-full'
-                  : ''
-              "
+            <transition
+              enter-active-class="transition-all duration-500 ease-in-out"
+              leave-active-class="transition-all duration-500 ease-in-out"
+              enter-from-class="opacity-0 -translate-y-5"
+              enter-to-class="opacity-90 translate-y-0"
+              leave-from-class="opacity-90 translate-y-0"
+              leave-to-class="opacity-0 -translate-y-5"
             >
               <div
-                class="container duration-700 ease-in z-20"
+                class="hidden lg:block top-14 rounded-lg absolute"
+                v-show="activeIndexParent === index"
                 :class="
-                  item.name === 'Partnership'
-                    ? 'px-5 pt-3 pb-1 bg-white rounded-lg mt-2'
+                  item.name === 'Program Kami'
+                    ? 'left-0 bg-white h-[370px] w-full'
                     : ''
                 "
               >
                 <div
-                  class="font-semibold text-[14px]"
-                  v-for="(option, index) in item.title"
-                  :key="index"
+                  class="container duration-700 ease-in z-20"
+                  :class="
+                    item.name === 'Partnership'
+                      ? 'px-5 pt-3 pb-1 bg-white rounded-lg mt-2'
+                      : ''
+                  "
                 >
-                  <div v-if="item.name === 'Partnership'" class="flex gap-2">
-                    <img
-                      :src="`/lulus-murni${option.image}`"
-                      :alt="option.name"
-                    />
-                    <a :href="option.link">{{ option.nameLink }}</a>
-                  </div>
-                  <div @click="option.isOpen = !option.isOpen">
-                    <div
-                      class="flex gap-2"
-                      :class="
-                        item.name === 'Program Kami' ? 'mb-[16px] pt-2' : ''
-                      "
-                    >
-                      <div v-if="option.name === 'Sertifikasi'">
-                        <nuxt-link
-                          class="cursor-pointer lg:text-[12px] xl:text-[14px] font-semibold hover:text-[#249CD9]"
-                          target="_blank"
-                          to="https://lulusmurni.com/lp/sertifikasi-profesi/"
-                          >{{ option.name }}</nuxt-link
-                        >
-                      </div>
-                      <div v-else>
-                        <button
-                          @click="toggleChild(index)"
-                          class="cursor-pointer lg:text-[12px] xl:text-[14px] font-semibold hover:text-[#249CD9]"
-                          :class="{
-                            'text-[#249CD9]': activeIndexChild === index,
-                          }"
-                        >
-                          {{ option.name }}
-                          <span
-                            :class="item.name === 'Partnership' ? 'hidden' : ''"
-                            v-if="activeIndexChild === index"
-                            >></span
+                  <div
+                    class="font-semibold text-[14px]"
+                    v-for="(option, index) in item.title"
+                    :key="index"
+                  >
+                    <div v-if="item.name === 'Partnership'" class="flex gap-2">
+                      <img
+                        :src="`/lulus-murni${option.image}`"
+                        :alt="option.name"
+                      />
+                      <a :href="option.link">{{ option.nameLink }}</a>
+                    </div>
+                    <div @click="option.isOpen = !option.isOpen">
+                      <div
+                        class="flex gap-2"
+                        :class="
+                          item.name === 'Program Kami' ? 'mb-[16px] pt-2' : ''
+                        "
+                      >
+                        <div v-if="option.name === 'Sertifikasi'">
+                          <nuxt-link
+                            class="cursor-pointer lg:text-[12px] xl:text-[14px] font-semibold hover:text-[#249CD9]"
+                            target="_blank"
+                            to="https://lulusmurni.com/lp/sertifikasi-profesi/"
+                            >{{ option.name }}</nuxt-link
                           >
-                        </button>
-                      </div>
-
-                      <div>
-                        <div v-show="activeIndexChild === index">
-                          <div
-                            class="flex border-l-2 absolute top-2 ml-[48px] pl-[32px] items"
+                        </div>
+                        <div v-else>
+                          <button
+                            @click="toggleChild(index)"
+                            class="cursor-pointer lg:text-[12px] xl:text-[14px] font-semibold hover:text-[#249CD9]"
+                            :class="{
+                              'text-[#249CD9]': activeIndexChild === index,
+                            }"
                           >
-                            <div
-                              class="px-[12px] lg:w-[190px] xl:w-[244px] z-50"
+                            {{ option.name }}
+                            <span
                               :class="
-                                option.name === 'Tryout' ? 'mb-[68px]' : ''
+                                item.name === 'Partnership' ? 'hidden' : ''
                               "
-                              v-for="program in option.programs"
-                              :key="program"
+                              v-if="activeIndexChild === index"
+                              >></span
                             >
-                              <router-link
-                                class="w-full"
-                                to="#"
-                                @click="checkTryout(program.name)"
-                              >
-                                <img
-                                  class="rounded-lg"
-                                  :src="`${program.imageDesktop}`"
-                                  :alt="program.name"
-                                />
-                                <h1 class="text-[14px] font-medium pt-2 pb-1">
-                                  {{ program.name }}
-                                </h1>
-                                <p class="text-[12px] text-[#5F6C73]">
-                                  {{ program.description }}
-                                </p>
-                              </router-link>
-                            </div>
+                          </button>
+                        </div>
+
+                        <div>
+                          <div v-show="activeIndexChild === index">
                             <div
-                              v-if="option.name === 'Tryout'"
-                              class="border-2 absolute bottom-0 border-[#249CD9] rounded-lg"
+                              class="flex border-l-2 absolute top-2 ml-[48px] pl-[32px] items"
                             >
-                              <router-link
-                                to="#"
-                                @click="allCategory('All')"
-                                class="flex p-2 gap-2 text-[14px] text-[#249CD9]"
+                              <div
+                                class="px-[12px] lg:w-[190px] xl:w-[244px] z-50"
+                                :class="
+                                  option.name === 'Tryout' ? 'mb-[68px]' : ''
+                                "
+                                v-for="program in option.programs"
+                                :key="program"
                               >
-                                Lihat Semua Program
-                                <img
-                                  class="w-[20px] h-[20px]"
-                                  src="/lulus-murni/navbar/arrow.svg"
-                                  alt="image"
-                                />
-                              </router-link>
+                                <router-link
+                                  class="w-full"
+                                  to="#"
+                                  @click="checkTryout(program.name)"
+                                >
+                                  <img
+                                    class="rounded-lg"
+                                    :src="`${program.imageDesktop}`"
+                                    :alt="program.name"
+                                  />
+                                  <h1 class="text-[14px] font-medium pt-2 pb-1">
+                                    {{ program.name }}
+                                  </h1>
+                                  <p class="text-[12px] text-[#5F6C73]">
+                                    {{ program.description }}
+                                  </p>
+                                </router-link>
+                              </div>
+                              <div
+                                v-if="option.name === 'Tryout'"
+                                class="border-2 absolute bottom-0 border-[#249CD9] rounded-lg"
+                              >
+                                <router-link
+                                  to="#"
+                                  @click="allCategory('All')"
+                                  class="flex p-2 gap-2 text-[14px] text-[#249CD9]"
+                                >
+                                  Lihat Semua Program
+                                  <img
+                                    class="w-[20px] h-[20px]"
+                                    src="/lulus-murni/navbar/arrow.svg"
+                                    alt="image"
+                                  />
+                                </router-link>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -245,7 +272,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </transition>
           </div>
           <div @click="toggleParent(index)">
             <nuxt-link

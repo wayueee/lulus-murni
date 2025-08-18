@@ -67,9 +67,7 @@
             "
           >
             <button
-              @click="
-                activeIndexParent = activeIndexParent === index ? null : index
-              "
+              @click="toggleParent(index)"
               class="text-[14px] lg:text-[13px] xl:text-[14px] text-[#2D2D2D] hover:font-semibold pr-1 cursor-pointer"
               :class="
                 activeIndexParent === index
@@ -80,9 +78,7 @@
               {{ item.name }}
             </button>
             <button
-              @click="
-                activeIndexParent = activeIndexParent === index ? null : index
-              "
+              @click="toggleParent(index)"
               v-if="item.name === 'Program Kami' || item.name === 'Partnership'"
               class="pl-1 transform transition-transform duration-300"
               :class="activeIndexParent === index ? 'rotate-0' : 'rotate-180'"
@@ -93,7 +89,7 @@
           <!-- Mobile-View -->
           <div
             v-show="activeIndexParent === index"
-            class="px-4 pb-4 text-[12px] lg:text-[14px] xl:text-[16px] text-[#47626F] lg:hidden"
+            class="px-4 text-[12px] lg:text-[14px] xl:text-[16px] text-[#47626F] lg:hidden"
           >
             <div
               class="font-semibold text-[14px]"
@@ -164,8 +160,10 @@
                   </div>
                   <div @click="option.isOpen = !option.isOpen">
                     <div
-                      class="flex gap-2 "
-                      :class="item.name === 'Program Kami' ? 'mb-[16px] pt-2' : ''"
+                      class="flex gap-2"
+                      :class="
+                        item.name === 'Program Kami' ? 'mb-[16px] pt-2' : ''
+                      "
                     >
                       <div v-if="option.name === 'Sertifikasi'">
                         <nuxt-link
@@ -177,10 +175,7 @@
                       </div>
                       <div v-else>
                         <button
-                          @click="
-                            activeIndexChild =
-                              activeIndexChild === index ? null : index
-                          "
+                          @click="toggleChild(index)"
                           class="cursor-pointer lg:text-[12px] xl:text-[14px] font-semibold hover:text-[#249CD9]"
                           :class="{
                             'text-[#249CD9]': activeIndexChild === index,
@@ -228,7 +223,7 @@
                             </div>
                             <div
                               v-if="option.name === 'Tryout'"
-                              class="border-2  absolute bottom-0 border-[#249CD9] rounded-lg"
+                              class="border-2 absolute bottom-0 border-[#249CD9] rounded-lg"
                             >
                               <router-link
                                 to="#"
@@ -237,9 +232,9 @@
                               >
                                 Lihat Semua Program
                                 <img
-                                class="w-[20px] h-[20px]"
-                                src="/lulus-murni/navbar/arrow.svg"
-                                alt="image"
+                                  class="w-[20px] h-[20px]"
+                                  src="/lulus-murni/navbar/arrow.svg"
+                                  alt="image"
                                 />
                               </router-link>
                             </div>
@@ -252,18 +247,20 @@
               </div>
             </div>
           </div>
-          <nuxt-link
-            v-if="item.nameLink === 'Promo'"
-            @click="toProductList(item.nameLink)"
-            class="cursor-pointer text-[14px] lg:text-[13px] xl:text-[14px] text-[#2D2D2D] font-medium lg:font-normal hover:font-semibold"
-            >{{ item.nameLink }}</nuxt-link
-          >
-          <nuxt-link
-            v-else
-            :to="item.link"
-            class="curson-pointer text-[14px] lg:text-[13px] xl:text-[14px] text-[#2D2D2D] font-medium lg:font-normal hover:font-semibold"
-            >{{ item.nameLink }}</nuxt-link
-          >
+          <div @click="toggleParent(index)">
+            <nuxt-link
+              v-if="item.nameLink === 'Promo'"
+              @click="toProductList(item.nameLink)"
+              class="cursor-pointer text-[14px] lg:text-[13px] xl:text-[14px] text-[#2D2D2D] font-medium lg:font-normal hover:font-semibold"
+              >{{ item.nameLink }}</nuxt-link
+            >
+            <nuxt-link
+              v-else
+              :to="item.link"
+              class="curson-pointer text-[14px] lg:text-[13px] xl:text-[14px] text-[#2D2D2D] font-medium lg:font-normal hover:font-semibold"
+              >{{ item.nameLink }}</nuxt-link
+            >
+          </div>
         </div>
         <div
           v-if="isLogin"
@@ -430,6 +427,13 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    toggleParent(index) {
+      this.isOpen = false;
+      this.activeIndexParent = this.activeIndexParent === index ? null : index;
+    },
+    toggleChild(index) {
+      this.activeIndexChild = this.activeIndexChild === index ? null : index;
     },
     checkTryout(name) {
       const saved = { name: name || "", tag: "" };

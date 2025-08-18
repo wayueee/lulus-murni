@@ -1,37 +1,39 @@
 <template>
   <div class="bg-[#085278]">
     <div class="py-[32px] container text-white">
-      <div class="lg:grid lg:grid-cols-2">
+      <div class="md:grid md:grid-cols-2 lg:justify-between">
         <div class="lg:w-[362px] xl:w-[300px]">
-          <img
-            class="w-[150px] lg:w-[200px] h-auto"
-            src="/lulus-murni/footer/lulus-murni-footer.png"
-            alt="text-lulus-murni"
-          />
+          <nuxt-link to="/">
+            <img
+              class="w-[150px] hover:opacity-60 lg:w-[200px] h-auto"
+              src="/lulus-murni/footer/lulus-murni-footer.png"
+              alt="text-lulus-murni"
+            />
+          </nuxt-link>
           <p
             class="mb-[32px] mt-[12px] text-[12px] lg:text-[14px] w-[280px] lg:leading-[30px]"
           >
             Platform Ujian CAT/CBT, Tryout dan Sertifikasi berbasis Online untuk
             mendukung proses dan persiapanmu meraih impian.
           </p>
-          <div class="hidden lg:block">
+          <div class="hidden md:block">
             <div class="gap-5 flex h-[auto]">
               <a href="">
-                <img src="/lulus-murni/footer/facebook-icon.svg" alt="icon" />
+                <img class="hover:opacity-60" src="/lulus-murni/footer/facebook-icon.svg" alt="icon" />
               </a>
               <a
                 href="https://www.instagram.com/lulusmurnidotcom/#"
                 target="_blank"
               >
-                <img src="/lulus-murni/footer/instagram-icon.svg" alt="icon" />
+                <img class="hover:opacity-60" src="/lulus-murni/footer/instagram-icon.svg" alt="icon" />
               </a>
               <a href="">
-                <img src="/lulus-murni/footer/twitter-icon.svg" alt="icon" />
+                <img class="hover:opacity-60" src="/lulus-murni/footer/twitter-icon.svg" alt="icon" />
               </a>
             </div>
           </div>
         </div>
-        <div class="mb-[32px] grid grid-cols-2 md:grid-cols-3 gap-5 xl:h-[230px]">
+        <div class="mb-[32px] grid grid-cols-2 md:grid-cols-3 gap-5">
           <div class="lg:w-[196px]">
             <h1 class="mb-[8px] text-[14px] font-semibold lg:text-[18px]">
               LulusMurni.com
@@ -58,7 +60,7 @@
               <a class="mt-[12px] hover:text-black/70" href="">Partnership</a> -->
             </div>
           </div>
-          <div class="xl:ml-[10px] xl:mr-[62px]">
+          <div class="xl:ml-[10px] xl:mr-[62px]md:flex md:flex-col md:justify-self-center">
             <h1 class="mb-[8px] text-[14px] font-semibold lg:text-[18px]">
               Tes Populer
             </h1>
@@ -75,7 +77,7 @@
             </div>
           </div>
       
-        <div class=" lg:mt-0 mb-[8px] r flex flex-col">
+        <div class=" lg:mt-0 mb-[8px] flex flex-col md:justify-self-end">
           <h1 class="font-semibold text-[14px] lg:text-[19px]">Hubungi Kami</h1>
           <div class="flex flex-col text-[12px] mt-[8px] lg:text-[14px]">
             <p>Kontak</p>
@@ -97,11 +99,11 @@
             <p class="text-[12px] lg:text-[14px] py-[4px]">Setiap Hari</p>
             <p class="text-[12px] lg:text-[14px]">09.00 - 21.00</p>
           </div>
-          <div class="lg:hidden my-[16px]">
+          <div class="md:hidden my-[16px]">
             <div class="gap-5 flex h-[auto]">
               <a href="">
                 <img
-                  class="w-5"
+                  class="w-5 hover:opacity-60"
                   src="/lulus-murni/footer/facebook-icon.svg"
                   alt="icon"
                 />
@@ -111,14 +113,14 @@
                 target="_blank"
               >
                 <img
-                  class="w-5"
+                  class="w-5 hover:opacity-60"
                   src="/lulus-murni/footer/instagram-icon.svg"
                   alt="icon"
                 />
               </a>
               <a href="">
                 <img
-                  class="w-5"
+                  class="w-5 hover:opacity-60"
                   src="/lulus-murni/footer/twitter-icon.svg"
                   alt="icon"
                 />

@@ -164,8 +164,8 @@
                   </div>
                   <div @click="option.isOpen = !option.isOpen">
                     <div
-                      class="flex gap-2 mb-[16px]"
-                      :class="item.name === 'Program Kami' ? 'pt-2' : ''"
+                      class="flex gap-2 "
+                      :class="item.name === 'Program Kami' ? 'mb-[16px] pt-2' : ''"
                     >
                       <div v-if="option.name === 'Sertifikasi'">
                         <nuxt-link
@@ -228,20 +228,20 @@
                             </div>
                             <div
                               v-if="option.name === 'Tryout'"
-                              class="border-2 flex p-2 gap-5 absolute bottom-0 border-[#249CD9] rounded-lg"
+                              class="border-2  absolute bottom-0 border-[#249CD9] rounded-lg"
                             >
                               <router-link
                                 to="#"
                                 @click="allCategory('All')"
-                                class="text-[14px] text-[#249CD9]"
+                                class="flex p-2 gap-2 text-[14px] text-[#249CD9]"
                               >
                                 Lihat Semua Program
-                              </router-link>
-                              <img
+                                <img
                                 class="w-[20px] h-[20px]"
                                 src="/lulus-murni/navbar/arrow.svg"
                                 alt="image"
-                              />
+                                />
+                              </router-link>
                             </div>
                           </div>
                         </div>
